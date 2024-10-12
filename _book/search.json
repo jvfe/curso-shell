@@ -1,0 +1,12 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Introdução à Linha de Comando",
+    "section": "",
+    "text": "Setup inicial\nEste minicurso de introdução à linha de comando do Linux é voltado para iniciantes que desejam aprender a manipular arquivos e diretórios, automatizar tarefas e utilizar recursos avançados da linha de comando. Serão abordados os comandos básicos para criar, deletar, editar, visualizar e filtrar arquivos, além de localizar arquivos no sistema. Também aprenderemos a usar o histórico de comandos, redirecionamento de entrada e saída com pipes, e fluxos de dados. O curso incluirá noções sobre loops e scripts, além de ferramentas como ‘xargs’ e ‘parallel’ para otimização de tarefas. Ao final, os alunos estarão aptos a utilizar a linha de comando com mais confiança e eficiência.",
+    "crumbs": [
+      "*Setup* inicial"
+    ]
+  }
+]
