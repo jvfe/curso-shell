@@ -4,9 +4,29 @@
     "href": "index.html",
     "title": "Introdução à Linha de Comando",
     "section": "",
-    "text": "Setup inicial\nEste minicurso de introdução à linha de comando do Linux é voltado para iniciantes que desejam aprender a manipular arquivos e diretórios, automatizar tarefas e utilizar recursos avançados da linha de comando. Serão abordados os comandos básicos para criar, deletar, editar, visualizar e filtrar arquivos, além de localizar arquivos no sistema. Também aprenderemos a usar o histórico de comandos, redirecionamento de entrada e saída com pipes, e fluxos de dados. O curso incluirá noções sobre loops e scripts, além de ferramentas como ‘xargs’ e ‘parallel’ para otimização de tarefas. Ao final, os alunos estarão aptos a utilizar a linha de comando com mais confiança e eficiência.",
+    "text": "Resumo\nEste minicurso de introdução à linha de comando do Linux é voltado para iniciantes que desejam aprender a manipular arquivos e diretórios, automatizar tarefas e utilizar recursos avançados da linha de comando. Serão abordados os comandos básicos para criar, deletar, editar, visualizar e filtrar arquivos, além de localizar arquivos no sistema. Também aprenderemos a usar o histórico de comandos, redirecionamento de entrada e saída com pipes, e fluxos de dados. O curso incluirá noções sobre loops e scripts, além de ferramentas como ‘xargs’ e ‘parallel’ para otimização de tarefas. Ao final, os alunos estarão aptos a utilizar a linha de comando com mais confiança e eficiência.",
     "crumbs": [
-      "*Setup* inicial"
+      "Resumo"
+    ]
+  },
+  {
+    "objectID": "01_Manipulando_arquivos.html",
+    "href": "01_Manipulando_arquivos.html",
+    "title": "1  Manipulando arquivos",
+    "section": "",
+    "text": "1.1 O que é o Shell?\nTipicamente, quando interagimos com um computador, utilizamos o que é chamado graphical user interface (ou GUI), que funciona através de interações com o mouse.\nNo entanto, apesar de GUIs serem intuitivas e fáceis de entender, é difícil fornecer instruções complexas, com muitos passos ou que envolvam várias operações sequenciais. Por exemplo, se você precisa copiar a terceira linha de mil arquivos de texto em centenas de diferentes diretórios, utilizando uma GUI esse processo se torna rapidamente inviável.\nPortanto, por fazerem tais atividades triviais, as interfaces de linha de comando (CLIs) se tornam indispensáveis até mesmo hoje em dia. Nesse contexto, temos o Shell, o programa onde o usuário digita comandos, que serão então executados e interpretados. O Shell mais popular hoje em dia, e presente em sistemas operacionais Unix, como o Linux, é o Bash.\nEntretanto, para se utilizar o Shell e a linha de comando, é necessário aprender e entender que operações são possíveis. Nesse curso, iremos expor os comandos e operações mais comuns de se realizarem em uma linha de comando, possibilitando que você entenda a base e possa então progredir para usos mais avançados e específicos.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Manipulando arquivos</span>"
+    ]
+  },
+  {
+    "objectID": "01_Manipulando_arquivos.html#navegando-por-arquivos-e-diretórios",
+    "href": "01_Manipulando_arquivos.html#navegando-por-arquivos-e-diretórios",
+    "title": "1  Manipulando arquivos",
+    "section": "1.2 Navegando por arquivos e diretórios",
+    "text": "1.2 Navegando por arquivos e diretórios\nVamos começar!\nQuando você abrir o shell pela primeira vez, você será apresentado ao prompt de comando, geralmente um cifrão, acompanhado de um cursor de texto. Em alguns sistemas operacionais é comum o prompt conter o nome do usuário e da máquina:\nbiome@biome $\nA maneira que interagimos com o shell é através de comandos digitados no prompt, que são então executados quando você pressiona a tecla Enter.\nMas você ainda não sabe nenhum comando! Então, para começarmos, use o comando ls, que significa listar, que lista os arquivos na pasta, ou diretório, atual:\nls",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Manipulando arquivos</span>"
     ]
   }
 ]
