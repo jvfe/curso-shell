@@ -1,5 +1,6 @@
 project:
   type: book
+  output-dir: docs
 
 book:
   title: "Introdução à Linha de Comando"
@@ -27,6 +28,3 @@ knitr:
 format:
   html:
     theme: cosmo
-  pdf:
-    documentclass: scrreprt
-
