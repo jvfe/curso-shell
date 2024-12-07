@@ -1,1 +1,3 @@
 # Outras ferramentas
+
+xargs e parallel

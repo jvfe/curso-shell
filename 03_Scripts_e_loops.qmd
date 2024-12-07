@@ -1,1 +1,163 @@
-# Criando scripts
+---
+title: "Introdução à Linha de Comando Linux"
+author: "Julia Apolonio & João Cavalcante"
+lang: pt
+format: 
+  revealjs:
+    theme: night
+    slide-number: true
+    footer: "Introdução à linha de comando do Linux"
+    chalkboard: true
+    multiplex: true # audience can follow along w/ mobile devices
+    fragments: true
+    logo: https://i.imgur.com/S7ZRJbj.png
+    smaller: true
+    css: logo.css
+---
+
+
+# Automatizando tudo! 
+- ### *Loops* e *Scripts*
+
+## Como repetir uma ação várias vezes?
+
+- *Loops* ou, em bom português, laços;
+
+- Como em qualquer outra linguagem, laços permitem que você
+realize uma mesma ação várias vezes, em sequência.
+
+- Mão na massa! Vamos supor que temos centenas de genomas, e queremos ver  identificação de cada um desses bichos, que está na segunda linha de cada genoma. 
+Você talvez pense em:
+
+```bash
+head -n 2 genoma.dat | tail -n 1
+```
+
+- Mas nós temos centenas de arquivos!
+
+## Introduzindo laços
+
+- A estrutura geral de um laço simples em Bash é a seguinte:
+
+```bash
+# "para cada coisa na lista de coisas"
+# coisa é um nome arbitrário!
+for coisa in lista_de_coisas 
+# A palavra "do" indica o início do bloco 
+# da ação a ser realizada
+do 
+    # Não precisa indentar, mas ajuda.
+    comando_a_executar $coisa 
+# A palavra "done" indica o fim de um laço
+done  
+```
+
+## Ok e agora para os genomas?
+
+- Mesma coisa que antes, mas vamos usar dados "reais" agora:
+
+```bash
+for genoma in basilisk.dat minotaur.dat
+do
+     head -n 2 $genoma | tail -n 1
+done
+```
+
+- Ou, para saber a identificação para cada arquivo:
+
+```bash
+for genoma in basilisk.dat minotaur.dat
+do
+    echo $genoma
+    head -n 2 $genoma | tail -n 1
+done
+```
+
+## Como salvar comandos para reutilizar depois?
+
+- A resposta: *Scripts*!
+  - Arquivos de texto contendo código, que pode ser interpretado
+  e re-executado múltiplas vezes.
+
+- Vamos supor que novos genomas continuam entrando no seu banco de dados,
+e agora você quer uma forma fácil de re-executar a identificação do genoma.
+  - Vamos então fazer um *script* que execute os comandos anteriores.
+
+## Escrevendo um script
+
+- Existem inúmeros editores de texto possíveis, mas, se você está restrito à linha de comando, provavelmente usará:
+  - `nano`
+  - `vim`
+
+- Para motivos didáticos, utilizaremos o `nano` nos exemplos posteriores.
+
+- Vamos criar um novo script, para isso, execute:
+
+```bash
+nano identifica_genoma.sh
+```
+
+## Escrevendo um script
+
+- Dentro do script, vamos colocar o comando anterior, mas vamos substituir uma parte:
+
+```bash
+head -n 2 $1 | tail -n 1
+```
+
+- A variável `$1` indica o primeiro argumento na linha de comando quando esse script
+é executado, ou seja, o genoma. Também podemos usar `$2`, `$3`, etc... `$@` se refere
+a todos os argumentos.
+
+- Salve o arquivo, e agora podemos executá-lo como tal:
+
+```bash
+bash identifica_genoma.sh unicorn.dat
+```
+
+## Uma breve tangente: Interpretadores e permissões
+
+- Você notou como usamos `bash` no comando anterior? Isso é um comando por si só,
+que diz que a linguagem `bash` deve interpretar o conteúdo textual do arquivo.
+
+- Mas isso pode ser ainda mais simples! Com apenas dois passos:
+  - Inclua no seu arquivo um *shebang*:
+  ```bash
+  #!/bin/bash
+  
+  head -n 2 $1 | tail -n 1
+  ```
+
+## Ok, mas e agora para executar?
+
+- Agora para executar seu programa propriamente dito, precisamos primeiro mudar suas
+permissões:
+  - O comando `chmod` pode dar a qualquer arquivo de texto a capacidade de ser
+  executado - Isso serve não só para bash, mas também Python, R, etc.
+  
+```bash
+chmod +x identifica_genoma.sh
+```
+
+- Agora podemos executar nosso script, com interpretadores e argumentos claramente definidos, assim:
+
+```bash
+./identifica_genoma.sh unicorn.dat
+```
+
+- Nosso script agora virou um comando! Podendo ser utilizado em outros scripts!
+
+# Avançando nos comandos I
+- ### Grep e Expressões Regulares
+
+## O que danado é `grep`?
+
+- ***G**lobal **R**egular **E**xpression search and **Print***
+
+- Uma forma de achar padrões em arquivo de texto
+
+---
+
+- Grep/Regex
+- Xargs
+- Parallel
