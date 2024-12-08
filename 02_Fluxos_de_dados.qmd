@@ -1,1 +1,84 @@
 # Fluxos de dados
+
+## Olhando para dentro dos arquivos
+
+Agora que aprendemos a navegar diretórios, vamos mexer com arquivos. No diretório em que estamos, temos uma série de arquivos no formato Protein Data Bank (pdb). Vamos usar o comando 'wc', de **w**ord **c**ount:
+
+``` bash
+wc cubane.pdb #linhas, palavras e caracteres no arquivo
+wc -l #só linhas
+```
+
+## Exibir conteúdo
+
+Mas o que tem nesse arquivo?
+
+``` bash
+cat cubane.pdb 
+```
+
+Se o seu arquivo for muito grande, é melhor usar um exibidor interativo:
+
+``` bash
+less cubane.pdb 
+```
+
+## Head e Tail
+
+Às vezes, você só quer ver uma parte do arquivo. Você pode usar os comandos 'head' e 'tail':
+
+``` bash
+head cubane.pdb
+head -n 5 cubane.pdb
+head -n 5 cubane.pdb ethane.pdb
+tail cubane.pdb
+tail -n 5 cubane.pdb
+```
+
+## Redirecionamento
+
+Podemos registar o output de um comando dentro de um arquivo por meio do símbolo '\>':
+
+``` bash
+wc -l *.pdb > lengths.txt
+cat lengths.txt
+```
+
+Agora, temos um arquivo chamado *lengths.txt* que possui o número de linhas de todos os arquivos .pdb do diretório.
+
+## Filtrar e ordenar os conteúdos de um arquivo
+
+Nós podemos ordenar as linhas de um arquivo usando o comando 'sort':
+
+``` bash
+sort -n lengths.txt
+sort lengths.txt #nesse caso, o ordenamento será por ordem alfabética
+```
+
+E da mesma maneira, podemos direcionar o output do ordenamento para um novo arquivo:
+
+``` bash
+sort -n lengths.txt > sorted-lengths.txt
+head -n 1 sorted-lengths.txt
+```
+
+Obs.: em Shell, é uma péssima prática direcionar o output de uma operação para o mesmo arquivo, isso pode comprometer a integridade dele!
+
+## Passando o output para outro comando (pipe)
+
+Em vez de criar vários arquivos intermediários que tornam o trabalho mais confuso, podemos direcionar o output de uma operação diretamente para outra usando o pipe '\|':
+
+``` bash
+sort -n lengths.txt | head -n 1
+wc -l *.pdb | sort -n | head -n 1
+```
+
+## EXERCÍCIO - Combinando múltiplos comandos
+
+-   Volte ao Home Directory
+
+-   Navegue até a pasta *animal-counts,* dentro de *exercise-data* e localize o arquivo *animals.csv*
+
+-   Inspecione o arquivo. Quantas linhas ele tem? Qual o formato do dado dele?
+
+-   Gere o arquivo *exercicio.txt* que ordena de forma alfabética reversa as 5 primeiras linhas do arquivo *animals.txt* e dispõe apenas os 3 últimos resultados da ordenação.
