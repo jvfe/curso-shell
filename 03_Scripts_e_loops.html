@@ -526,6 +526,15 @@ Julia Apolonio &amp; João Cavalcante
 <li>Nosso script agora virou um comando! Podendo ser utilizado em outros scripts!</li>
 </ul>
 </section></section>
+<section id="exercício---10-minutos" class="title-slide slide level1 center">
+<h1>Exercício - 10 minutos</h1>
+<ul>
+<li><p>Se direcione ao diretório <code>exercise-data/alkanes</code></p></li>
+<li><p>Lá, escreva um script chamado <code>junta_pdb.sh</code>. Esse script deve fazer um laço em todos os arquivos .pdb no diretório atual, con<code>cat</code>enando todos eles em um único arquivo. Para isso, use o direcionador de saída <code>&gt;&gt;</code>.</p></li>
+<li><p>Faça seu script executável (adicione o <em>shebang</em> e modifique as permissões).</p></li>
+</ul>
+</section>
+
 <section>
 <section id="avançando-nos-comandos-i" class="title-slide slide level1 center">
 <h1>Avançando nos comandos I</h1>
@@ -590,16 +599,43 @@ Julia Apolonio &amp; João Cavalcante
 </section>
 <section id="xargs" class="slide level2">
 <h2>xargs</h2>
+<ul>
+<li><code>xargs</code> é um comando que transforma a saída de outros comandos de forma a facilitar a execução encadeada. Pois a quebra de linhas ou espaços pode dificultar a execução de outro comando em sequência.</li>
+</ul>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href=""></a><span class="co"># Isso não funciona</span></span>
+<span id="cb15-2"><a href=""></a><span class="fu">ls</span> <span class="pp">*</span>pdb <span class="kw">|</span> <span class="fu">grep</span> AUTHOR</span>
+<span id="cb15-3"><a href=""></a><span class="co"># Isso funciona!</span></span>
+<span id="cb15-4"><a href=""></a><span class="fu">ls</span> <span class="pp">*</span>pdb <span class="kw">|</span> <span class="fu">xargs</span> grep AUTHOR</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="gnu-parallel" class="slide level2">
 <h2>GNU parallel</h2>
+<ul>
+<li><p><code>parallel</code> é um comando que por padrão não vem em algumas distribuições, mas é super útil! Use ele para paralelizar a execução de comandos.</p></li>
+<li><p>Por exemplo, vamos compactar vários arquivos .pdb:</p></li>
+</ul>
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href=""></a><span class="fu">ls</span> <span class="pp">*</span>pdb <span class="kw">|</span> <span class="ex">parallel</span> gzip</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<center>
+<img data-src="https://i.imgur.com/LTnMvA4.png" width="400">
+</center>
+</section></section>
+<section id="para-aprender-mais" class="title-slide slide level1 center">
+<h1>Para aprender mais</h1>
+<ul>
+<li><p><a href="https://linuxjourney.com/change_locale/pt-BR">Linux Journey</a></p></li>
+<li><p><a href="https://swcarpentry.github.io/shell-novice/">Software Carpentry</a></p></li>
+<li><p><a href="https://www.hackerrank.com/domains/shell">HackerRank</a></p></li>
+</ul>
+</section>
+
+<section id="obrigado" class="title-slide slide level1 center">
+<h1>Obrigado!</h1>
 <div class="quarto-auto-generated-content">
 <p><img src="https://i.imgur.com/S7ZRJbj.png" class="slide-logo"></p>
 <div class="footer footer-default">
 <p>Introdução à linha de comando do Linux</p>
 </div>
 </div>
-</section></section>
+</section>
     </div>
   </div>
 

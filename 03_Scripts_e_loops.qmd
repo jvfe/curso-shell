@@ -147,6 +147,16 @@ chmod +x identifica_genoma.sh
 
 - Nosso script agora virou um comando! Podendo ser utilizado em outros scripts!
 
+# Exercício - 10 minutos
+
+- Se direcione ao diretório `exercise-data/alkanes`
+
+- Lá, escreva um script chamado `junta_pdb.sh`. Esse script deve fazer um laço
+em todos os arquivos .pdb no diretório atual, con`cat`enando todos eles em um único
+arquivo. Para isso, use o direcionador de saída `>>`.
+
+- Faça seu script executável (adicione o *shebang* e modifique as permissões).
+
 # Avançando nos comandos I
 - ### Grep e Expressões Regulares
 
@@ -206,4 +216,37 @@ assim como as *regexes*, ainda mais complexo! Dê uma olhada no seu manual (`man
 
 ## xargs
 
+- `xargs` é um comando que transforma a saída de outros comandos de forma a facilitar
+a execução encadeada. Pois a quebra de linhas ou espaços pode dificultar a execução de outro comando em sequência.
+
+
+```bash
+# Isso não funciona
+ls *pdb | grep AUTHOR
+# Isso funciona!
+ls *pdb | xargs grep AUTHOR
+```
+
 ## GNU parallel
+
+- `parallel` é um comando que por padrão não vem em algumas distribuições, mas é super útil! Use ele para paralelizar a execução de comandos.
+
+- Por exemplo, vamos compactar vários arquivos .pdb:
+
+```bash
+ls *pdb | parallel gzip
+```
+
+<center>
+![](https://i.imgur.com/LTnMvA4.png){width=400}
+</center>
+
+# Para aprender mais
+
+- [Linux Journey](https://linuxjourney.com/change_locale/pt-BR)
+
+- [Software Carpentry](https://swcarpentry.github.io/shell-novice/)
+
+- [HackerRank](https://www.hackerrank.com/domains/shell)
+
+# Obrigado!
