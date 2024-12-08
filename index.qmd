@@ -103,6 +103,35 @@ wc -l *.pdb | sort -n | head -n 1
 # Automatizando tudo! 
 - ### *Loops* e *Scripts*
 
+## Primeiro, quem é você?
+
+:::: {.columns}
+
+::: {.column width="60%"}
+
+
+Atividade de Pesquisa:
+
+- Doutorando em Bioinformática, UFRN
+  - Metagenômica, transcriptômica e desenvolvimento de software no [Dalmolin Group](https://dalmolingroup.github.io/)
+
+Experiência de ensino:
+
+- [Nextflow Ambassador](https://www.nextflow.io/ambassadors.html), Seqera
+- Instructor, Anaconda Inc. ([Version Control with Git](https://learning.anaconda.cloud/version-control-with-git))
+
+:::
+
+::: {.column width="40%"}
+<center>
+![](https://i.imgur.com/HO5iebg.png)
+
+[joao.bio.br](https://joao.bio.br/)
+</center>
+
+:::
+::::
+
 ## Como repetir uma ação várias vezes?
 
 - *Loops* ou, em bom português, laços;
