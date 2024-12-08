@@ -15,6 +15,202 @@ format:
     css: main.css
 ---
 
+# Manipulando arquivos
+
+## O que é o Shell?
+
+-   Tipicamente, quando interagimos com um computador, utilizamos *graphical user interface* (ou GUI), que funciona através de interações com o *mouse.*
+
+-   É difícil fornecer instruções complexas para uma GUI, com muitos passos ou que envolvam várias operações sequenciais. Por exemplo, se você precisar copiar a terceira linha de mil arquivos de texto em centenas de diferentes diretórios.
+
+-   Portanto, por fazerem tais atividades triviais, as **interfaces de linha de comando** (CLIs) são indispensáveis. Nesse contexto, temos o ***Shell***, o programa onde o usuário digita comandos, que serão então executados e interpretados. O *Shell* mais popular hoje em dia, e presente em sistemas operacionais *Unix*, como o Linux, é o **Bash**.
+
+## Navegando por arquivos e diretórios
+
+Vamos começar!
+
+Quando você abrir o *shell* pela primeira vez, você será apresentado ao ***prompt*** **de comando**, geralmente um cifrão, acompanhado de um cursor de texto. Em alguns sistemas operacionais é comum o prompt conter o nome do usuário e da máquina:
+
+``` bash
+biome@biome $
+```
+
+## Hello World!
+
+Como todo curso de programação que se preze, vamos começar fazendo nosso 'hello world' em Shell:
+
+``` bash
+echo 'Hello World!'
+```
+
+## Comandos no shell
+
+A maneira que interagimos com o *shell* é através de comandos digitados no *prompt*, que são então executados quando você pressiona a tecla **Enter**.
+
+Mas você ainda não sabe nenhum comando! Então, para começarmos, use o comando `ls`, que significa **l**i**s**tar, que lista os arquivos na pasta, ou diretório, atual:
+
+``` bash
+ls
+```
+
+## Diretório de trabalho
+
+O prompt listou todos os arquivos e diretórios presentes onde você está. Mas onde você está agora? Com o comando 'pwd', que significa **P**rint **W**orking **D**irectory, você consegue ver o caminho absoluto para onde o seu prompt está apontando:
+
+``` bash
+pwd
+```
+
+Se você seguiu as instruções à risca até aqui, o output do prompt deve ser o seu 'Home Directory', ou seja, o local que você entra quando faz login. Cada usuário no computador tem o seu próprio, e ele deve ter um formato `/home/<USUARIO>`.
+
+## Movendo entre pastas
+
+Agora, para se mover dentro do sistema de arquivos, você pode usar o comando 'cd', de **c**hange **d**irectory:
+
+``` bash
+cd Downloads
+```
+
+Você entrou no diretório de downloads do seu computador. Você pode checar os arquivos existentes usando 'ls' e pode verificar onde está usando 'pwd'.
+
+``` bash
+ls
+pwd
+```
+
+## Opções do ls
+
+Se você tem um grande número de arquivos no seu diretório, é complicado localizar algum arquivo apenas listando todos. Para isso, podemos usar alguns artifícios do comando ls:
+
+``` bash
+ls -t #organiza por tempo em vez de ordem alfabética
+ls -tr #reverte a ordem anterior (mostra o mais recente por último)
+ls -s #mostra o tamanho de cada arquivo em blocos
+ls -sh #mostra o tamanho de cada arquivo em formato de leitura humano
+ls *.zip #mostra todos os arquivos que terminam com ".zip"
+ls sh* #mostra todos os arquivos que começam com "sh"
+ls *lesson* #mostra todos os arquivos que contém "lesson" em algum canto do nome
+```
+
+## Dezipar arquivos
+
+Agora que achamos o arquivo com os dados do curso, vamos dezipá-lo para acessar seu conteúdo interno:
+
+``` bash
+unzip shell-lesson-data.zip
+ls shell-lesson-data
+cd shell-lesson-data
+cd exercise-data
+```
+
+Dica: você não precisa escrever o nome do arquivo inteiro! Basta começar a escrever e pressionar 'Tab' que o prompt autocompletará.
+
+## Navegando para trás
+
+Como voltar no sistema de arquivos?
+
+``` bash
+cd .. #volta uma etapa na arvore de arquivos
+pwd
+cd #volta para o home directory
+pwd
+cd Downloads/shell-lesson-data/north-pacific-gyre #caminho relativo
+pwd
+cd /home/juliaapolonio/Downloads/shell-lesson-data/exercise-data/alkanes #caminho absoluto
+pwd
+```
+
+## Arquivos ocultos
+
+Essa opção '..' não está presente quando rodamos 'ls', mas ela está oculta em todos os diretórios e pode ser vista com:
+
+``` bash
+ls -a
+```
+
+Assim como o '..', que volta um passo na árvore de arquivos, também temos o '.', que representa o diretório atual. Em algumas situações, também haverão alguns arquivos de configuração (como o .gitignore, comumente visto em repositórios do git).
+
+## Criar, mover, copiar e deletar arquivos
+
+Para criar um diretório, você pode usar o comando 'mkdir', de **m**a**k**e **dir**ectory:
+
+``` bash
+cd ../writing
+mkdir thesis
+ls
+```
+
+## Regras básicas para nomear um diretório:
+
+-   Não use espaços
+
+-   Não comece com hífen (-)
+
+-   Use apenas letras, números, ponto final, hífen, underscore
+
+Se você precisa lidar com diretórios que não seguem essas regras, você pode colocar o nome deles entre aspas simples '' para mencioná-los em algum comando.
+
+## Criar um arquivo
+
+Vamos criar um arquivo a partir do terminal:
+
+``` bash
+cd thesis
+touch draft.txt #cria arquivo sem abrir
+
+mkdir files
+cd files
+code texto.txt #abre na IDE Visual Studio Code
+nano rascunho.txt #abre no editor nano. Outras opções: vim, vi
+```
+
+## Comandos do nano
+
+-   Ctrl + O, Enter - salvar alterações no arquivo
+
+-   Ctrl + X - sair do editor
+
+-   Ctrl + \^ - modo de seleção de texto
+
+-   Alt + 6 - copia
+
+-   Ctrl + U - cola
+
+## Deletar arquivos
+
+Como não vamos usar os arquivos criados em *files*, vamos removê-los usando 'rm', de **r**e**m**ove:
+
+``` bash
+rm texto.txt #deleta o arquivo
+cd ..
+rm files #irá retornar um erro
+rm -rf files #para deletar um diretório e seus arquivos, é preciso das opções -rf (recursive,force)
+#CUIDADO com esse comando! Não existe lixeira no Linux!!!!
+```
+
+## Mover arquivos
+
+O comando **m**o**v**e é versátil e serve tanto para renomear arquivos quando para movê-los para outro caminho:
+
+``` bash
+cd ~/Downloads/shell-lesson-data/exercise-data/writing #abrevia o caminho da Home
+mv thesis/draft.txt thesis/quotes.txt #muda o nome de draft.txt para quotes.txt
+ls thesis
+mv thesis/quotes.txt . #movendo quotes.txt para o nosso diretório atual
+ls thesis
+```
+
+## Copiar arquivos
+
+Podemos copiar arquivos usando o comando 'cp':
+
+``` bash
+cp quotes.txt thesis/quotations.txt
+cp -r thesis thesis_backup #podemos copiar recursivamente para gerar um arquivo de backup
+ls thesis
+ls thesis_backup
+```
+
 # Fluxos de dados
 
 ## Olhando para dentro dos arquivos

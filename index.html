@@ -406,6 +406,151 @@ Julia Apolonio &amp; João Cavalcante
 
 </section>
 <section>
+<section id="manipulando-arquivos" class="title-slide slide level1 center">
+<h1>Manipulando arquivos</h1>
+
+</section>
+<section id="o-que-é-o-shell" class="slide level2">
+<h2>O que é o Shell?</h2>
+<ul>
+<li><p>Tipicamente, quando interagimos com um computador, utilizamos <em>graphical user interface</em> (ou GUI), que funciona através de interações com o <em>mouse.</em></p></li>
+<li><p>É difícil fornecer instruções complexas para uma GUI, com muitos passos ou que envolvam várias operações sequenciais. Por exemplo, se você precisar copiar a terceira linha de mil arquivos de texto em centenas de diferentes diretórios.</p></li>
+<li><p>Portanto, por fazerem tais atividades triviais, as <strong>interfaces de linha de comando</strong> (CLIs) são indispensáveis. Nesse contexto, temos o <strong><em>Shell</em></strong>, o programa onde o usuário digita comandos, que serão então executados e interpretados. O <em>Shell</em> mais popular hoje em dia, e presente em sistemas operacionais <em>Unix</em>, como o Linux, é o <strong>Bash</strong>.</p></li>
+</ul>
+</section>
+<section id="navegando-por-arquivos-e-diretórios" class="slide level2">
+<h2>Navegando por arquivos e diretórios</h2>
+<p>Vamos começar!</p>
+<p>Quando você abrir o <em>shell</em> pela primeira vez, você será apresentado ao <strong><em>prompt</em></strong> <strong>de comando</strong>, geralmente um cifrão, acompanhado de um cursor de texto. Em alguns sistemas operacionais é comum o prompt conter o nome do usuário e da máquina:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href=""></a><span class="ex">biome@biome</span> $</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="hello-world" class="slide level2">
+<h2>Hello World!</h2>
+<p>Como todo curso de programação que se preze, vamos começar fazendo nosso ‘hello world’ em Shell:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href=""></a><span class="bu">echo</span> <span class="st">'Hello World!'</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="comandos-no-shell" class="slide level2">
+<h2>Comandos no shell</h2>
+<p>A maneira que interagimos com o <em>shell</em> é através de comandos digitados no <em>prompt</em>, que são então executados quando você pressiona a tecla <strong>Enter</strong>.</p>
+<p>Mas você ainda não sabe nenhum comando! Então, para começarmos, use o comando <code>ls</code>, que significa <strong>l</strong>i<strong>s</strong>tar, que lista os arquivos na pasta, ou diretório, atual:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href=""></a><span class="fu">ls</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="diretório-de-trabalho" class="slide level2">
+<h2>Diretório de trabalho</h2>
+<p>O prompt listou todos os arquivos e diretórios presentes onde você está. Mas onde você está agora? Com o comando ‘pwd’, que significa <strong>P</strong>rint <strong>W</strong>orking <strong>D</strong>irectory, você consegue ver o caminho absoluto para onde o seu prompt está apontando:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href=""></a><span class="bu">pwd</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Se você seguiu as instruções à risca até aqui, o output do prompt deve ser o seu ‘Home Directory’, ou seja, o local que você entra quando faz login. Cada usuário no computador tem o seu próprio, e ele deve ter um formato <code>/home/&lt;USUARIO&gt;</code>.</p>
+</section>
+<section id="movendo-entre-pastas" class="slide level2">
+<h2>Movendo entre pastas</h2>
+<p>Agora, para se mover dentro do sistema de arquivos, você pode usar o comando ‘cd’, de <strong>c</strong>hange <strong>d</strong>irectory:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href=""></a><span class="bu">cd</span> Downloads</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Você entrou no diretório de downloads do seu computador. Você pode checar os arquivos existentes usando ‘ls’ e pode verificar onde está usando ‘pwd’.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href=""></a><span class="fu">ls</span></span>
+<span id="cb6-2"><a href=""></a><span class="bu">pwd</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="opções-do-ls" class="slide level2">
+<h2>Opções do ls</h2>
+<p>Se você tem um grande número de arquivos no seu diretório, é complicado localizar algum arquivo apenas listando todos. Para isso, podemos usar alguns artifícios do comando ls:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href=""></a><span class="fu">ls</span> <span class="at">-t</span> <span class="co">#organiza por tempo em vez de ordem alfabética</span></span>
+<span id="cb7-2"><a href=""></a><span class="fu">ls</span> <span class="at">-tr</span> <span class="co">#reverte a ordem anterior (mostra o mais recente por último)</span></span>
+<span id="cb7-3"><a href=""></a><span class="fu">ls</span> <span class="at">-s</span> <span class="co">#mostra o tamanho de cada arquivo em blocos</span></span>
+<span id="cb7-4"><a href=""></a><span class="fu">ls</span> <span class="at">-sh</span> <span class="co">#mostra o tamanho de cada arquivo em formato de leitura humano</span></span>
+<span id="cb7-5"><a href=""></a><span class="fu">ls</span> <span class="pp">*</span>.zip <span class="co">#mostra todos os arquivos que terminam com ".zip"</span></span>
+<span id="cb7-6"><a href=""></a><span class="fu">ls</span> sh<span class="pp">*</span> <span class="co">#mostra todos os arquivos que começam com "sh"</span></span>
+<span id="cb7-7"><a href=""></a><span class="fu">ls</span> <span class="pp">*</span>lesson<span class="pp">*</span> <span class="co">#mostra todos os arquivos que contém "lesson" em algum canto do nome</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="dezipar-arquivos" class="slide level2">
+<h2>Dezipar arquivos</h2>
+<p>Agora que achamos o arquivo com os dados do curso, vamos dezipá-lo para acessar seu conteúdo interno:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href=""></a><span class="fu">unzip</span> shell-lesson-data.zip</span>
+<span id="cb8-2"><a href=""></a><span class="fu">ls</span> shell-lesson-data</span>
+<span id="cb8-3"><a href=""></a><span class="bu">cd</span> shell-lesson-data</span>
+<span id="cb8-4"><a href=""></a><span class="bu">cd</span> exercise-data</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Dica: você não precisa escrever o nome do arquivo inteiro! Basta começar a escrever e pressionar ‘Tab’ que o prompt autocompletará.</p>
+</section>
+<section id="navegando-para-trás" class="slide level2">
+<h2>Navegando para trás</h2>
+<p>Como voltar no sistema de arquivos?</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href=""></a><span class="bu">cd</span> .. <span class="co">#volta uma etapa na arvore de arquivos</span></span>
+<span id="cb9-2"><a href=""></a><span class="bu">pwd</span></span>
+<span id="cb9-3"><a href=""></a><span class="bu">cd</span> <span class="co">#volta para o home directory</span></span>
+<span id="cb9-4"><a href=""></a><span class="bu">pwd</span></span>
+<span id="cb9-5"><a href=""></a><span class="bu">cd</span> Downloads/shell-lesson-data/north-pacific-gyre <span class="co">#caminho relativo</span></span>
+<span id="cb9-6"><a href=""></a><span class="bu">pwd</span></span>
+<span id="cb9-7"><a href=""></a><span class="bu">cd</span> /home/juliaapolonio/Downloads/shell-lesson-data/exercise-data/alkanes <span class="co">#caminho absoluto</span></span>
+<span id="cb9-8"><a href=""></a><span class="bu">pwd</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="arquivos-ocultos" class="slide level2">
+<h2>Arquivos ocultos</h2>
+<p>Essa opção ‘..’ não está presente quando rodamos ‘ls’, mas ela está oculta em todos os diretórios e pode ser vista com:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href=""></a><span class="fu">ls</span> <span class="at">-a</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Assim como o ‘..’, que volta um passo na árvore de arquivos, também temos o ‘.’, que representa o diretório atual. Em algumas situações, também haverão alguns arquivos de configuração (como o .gitignore, comumente visto em repositórios do git).</p>
+</section>
+<section id="criar-mover-copiar-e-deletar-arquivos" class="slide level2">
+<h2>Criar, mover, copiar e deletar arquivos</h2>
+<p>Para criar um diretório, você pode usar o comando ‘mkdir’, de <strong>m</strong>a<strong>k</strong>e <strong>dir</strong>ectory:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href=""></a><span class="bu">cd</span> ../writing</span>
+<span id="cb11-2"><a href=""></a><span class="fu">mkdir</span> thesis</span>
+<span id="cb11-3"><a href=""></a><span class="fu">ls</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="regras-básicas-para-nomear-um-diretório" class="slide level2">
+<h2>Regras básicas para nomear um diretório:</h2>
+<ul>
+<li><p>Não use espaços</p></li>
+<li><p>Não comece com hífen (-)</p></li>
+<li><p>Use apenas letras, números, ponto final, hífen, underscore</p></li>
+</ul>
+<p>Se você precisa lidar com diretórios que não seguem essas regras, você pode colocar o nome deles entre aspas simples ’’ para mencioná-los em algum comando.</p>
+</section>
+<section id="criar-um-arquivo" class="slide level2">
+<h2>Criar um arquivo</h2>
+<p>Vamos criar um arquivo a partir do terminal:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href=""></a><span class="bu">cd</span> thesis</span>
+<span id="cb12-2"><a href=""></a><span class="fu">touch</span> draft.txt <span class="co">#cria arquivo sem abrir</span></span>
+<span id="cb12-3"><a href=""></a></span>
+<span id="cb12-4"><a href=""></a><span class="fu">mkdir</span> files</span>
+<span id="cb12-5"><a href=""></a><span class="bu">cd</span> files</span>
+<span id="cb12-6"><a href=""></a><span class="ex">code</span> texto.txt <span class="co">#abre na IDE Visual Studio Code</span></span>
+<span id="cb12-7"><a href=""></a><span class="fu">nano</span> rascunho.txt <span class="co">#abre no editor nano. Outras opções: vim, vi</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="comandos-do-nano" class="slide level2">
+<h2>Comandos do nano</h2>
+<ul>
+<li><p>Ctrl + O, Enter - salvar alterações no arquivo</p></li>
+<li><p>Ctrl + X - sair do editor</p></li>
+<li><p>Ctrl + ^ - modo de seleção de texto</p></li>
+<li><p>Alt + 6 - copia</p></li>
+<li><p>Ctrl + U - cola</p></li>
+</ul>
+</section>
+<section id="deletar-arquivos" class="slide level2">
+<h2>Deletar arquivos</h2>
+<p>Como não vamos usar os arquivos criados em <em>files</em>, vamos removê-los usando ‘rm’, de <strong>r</strong>e<strong>m</strong>ove:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href=""></a><span class="fu">rm</span> texto.txt <span class="co">#deleta o arquivo</span></span>
+<span id="cb13-2"><a href=""></a><span class="bu">cd</span> ..</span>
+<span id="cb13-3"><a href=""></a><span class="fu">rm</span> files <span class="co">#irá retornar um erro</span></span>
+<span id="cb13-4"><a href=""></a><span class="fu">rm</span> <span class="at">-rf</span> files <span class="co">#para deletar um diretório e seus arquivos, é preciso das opções -rf (recursive,force)</span></span>
+<span id="cb13-5"><a href=""></a><span class="co">#CUIDADO com esse comando! Não existe lixeira no Linux!!!!</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="mover-arquivos" class="slide level2">
+<h2>Mover arquivos</h2>
+<p>O comando <strong>m</strong>o<strong>v</strong>e é versátil e serve tanto para renomear arquivos quando para movê-los para outro caminho:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href=""></a><span class="bu">cd</span> ~/Downloads/shell-lesson-data/exercise-data/writing <span class="co">#abrevia o caminho da Home</span></span>
+<span id="cb14-2"><a href=""></a><span class="fu">mv</span> thesis/draft.txt thesis/quotes.txt <span class="co">#muda o nome de draft.txt para quotes.txt</span></span>
+<span id="cb14-3"><a href=""></a><span class="fu">ls</span> thesis</span>
+<span id="cb14-4"><a href=""></a><span class="fu">mv</span> thesis/quotes.txt . <span class="co">#movendo quotes.txt para o nosso diretório atual</span></span>
+<span id="cb14-5"><a href=""></a><span class="fu">ls</span> thesis</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="copiar-arquivos" class="slide level2">
+<h2>Copiar arquivos</h2>
+<p>Podemos copiar arquivos usando o comando ‘cp’:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href=""></a><span class="fu">cp</span> quotes.txt thesis/quotations.txt</span>
+<span id="cb15-2"><a href=""></a><span class="fu">cp</span> <span class="at">-r</span> thesis thesis_backup <span class="co">#podemos copiar recursivamente para gerar um arquivo de backup</span></span>
+<span id="cb15-3"><a href=""></a><span class="fu">ls</span> thesis</span>
+<span id="cb15-4"><a href=""></a><span class="fu">ls</span> thesis_backup</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section></section>
+<section>
 <section id="fluxos-de-dados" class="title-slide slide level1 center">
 <h1>Fluxos de dados</h1>
 
@@ -413,47 +558,47 @@ Julia Apolonio &amp; João Cavalcante
 <section id="olhando-para-dentro-dos-arquivos" class="slide level2">
 <h2>Olhando para dentro dos arquivos</h2>
 <p>Agora que aprendemos a navegar diretórios, vamos mexer com arquivos. No diretório em que estamos, temos uma série de arquivos no formato Protein Data Bank (pdb). Vamos usar o comando ‘wc’, de <strong>w</strong>ord <strong>c</strong>ount:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href=""></a><span class="fu">wc</span> cubane.pdb <span class="co">#linhas, palavras e caracteres no arquivo</span></span>
-<span id="cb1-2"><a href=""></a><span class="fu">wc</span> <span class="at">-l</span> <span class="co">#só linhas</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href=""></a><span class="fu">wc</span> cubane.pdb <span class="co">#linhas, palavras e caracteres no arquivo</span></span>
+<span id="cb16-2"><a href=""></a><span class="fu">wc</span> <span class="at">-l</span> <span class="co">#só linhas</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="exibir-conteúdo" class="slide level2">
 <h2>Exibir conteúdo</h2>
 <p>Mas o que tem nesse arquivo?</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href=""></a><span class="fu">cat</span> cubane.pdb </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href=""></a><span class="fu">cat</span> cubane.pdb </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Se o seu arquivo for muito grande, é melhor usar um exibidor interativo:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href=""></a><span class="fu">less</span> cubane.pdb </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href=""></a><span class="fu">less</span> cubane.pdb </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="head-e-tail" class="slide level2">
 <h2>Head e Tail</h2>
 <p>Às vezes, você só quer ver uma parte do arquivo. Você pode usar os comandos ‘head’ e ‘tail’:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href=""></a><span class="fu">head</span> cubane.pdb</span>
-<span id="cb4-2"><a href=""></a><span class="fu">head</span> <span class="at">-n</span> 5 cubane.pdb</span>
-<span id="cb4-3"><a href=""></a><span class="fu">head</span> <span class="at">-n</span> 5 cubane.pdb ethane.pdb</span>
-<span id="cb4-4"><a href=""></a><span class="fu">tail</span> cubane.pdb</span>
-<span id="cb4-5"><a href=""></a><span class="fu">tail</span> <span class="at">-n</span> 5 cubane.pdb</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href=""></a><span class="fu">head</span> cubane.pdb</span>
+<span id="cb19-2"><a href=""></a><span class="fu">head</span> <span class="at">-n</span> 5 cubane.pdb</span>
+<span id="cb19-3"><a href=""></a><span class="fu">head</span> <span class="at">-n</span> 5 cubane.pdb ethane.pdb</span>
+<span id="cb19-4"><a href=""></a><span class="fu">tail</span> cubane.pdb</span>
+<span id="cb19-5"><a href=""></a><span class="fu">tail</span> <span class="at">-n</span> 5 cubane.pdb</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="redirecionamento" class="slide level2">
 <h2>Redirecionamento</h2>
 <p>Podemos registar o output de um comando dentro de um arquivo por meio do símbolo ‘&gt;’:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href=""></a><span class="fu">wc</span> <span class="at">-l</span> <span class="pp">*</span>.pdb <span class="op">&gt;</span> lengths.txt</span>
-<span id="cb5-2"><a href=""></a><span class="fu">cat</span> lengths.txt</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href=""></a><span class="fu">wc</span> <span class="at">-l</span> <span class="pp">*</span>.pdb <span class="op">&gt;</span> lengths.txt</span>
+<span id="cb20-2"><a href=""></a><span class="fu">cat</span> lengths.txt</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Agora, temos um arquivo chamado <em>lengths.txt</em> que possui o número de linhas de todos os arquivos .pdb do diretório.</p>
 </section>
 <section id="filtrar-e-ordenar-os-conteúdos-de-um-arquivo" class="slide level2">
 <h2>Filtrar e ordenar os conteúdos de um arquivo</h2>
 <p>Nós podemos ordenar as linhas de um arquivo usando o comando ‘sort’:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href=""></a><span class="fu">sort</span> <span class="at">-n</span> lengths.txt</span>
-<span id="cb6-2"><a href=""></a><span class="fu">sort</span> lengths.txt <span class="co">#nesse caso, o ordenamento será por ordem alfabética</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href=""></a><span class="fu">sort</span> <span class="at">-n</span> lengths.txt</span>
+<span id="cb21-2"><a href=""></a><span class="fu">sort</span> lengths.txt <span class="co">#nesse caso, o ordenamento será por ordem alfabética</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>E da mesma maneira, podemos direcionar o output do ordenamento para um novo arquivo:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href=""></a><span class="fu">sort</span> <span class="at">-n</span> lengths.txt <span class="op">&gt;</span> sorted-lengths.txt</span>
-<span id="cb7-2"><a href=""></a><span class="fu">head</span> <span class="at">-n</span> 1 sorted-lengths.txt</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href=""></a><span class="fu">sort</span> <span class="at">-n</span> lengths.txt <span class="op">&gt;</span> sorted-lengths.txt</span>
+<span id="cb22-2"><a href=""></a><span class="fu">head</span> <span class="at">-n</span> 1 sorted-lengths.txt</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Obs.: em Shell, é uma péssima prática direcionar o output de uma operação para o mesmo arquivo, isso pode comprometer a integridade dele!</p>
 </section>
 <section id="passando-o-output-para-outro-comando-pipe" class="slide level2">
 <h2>Passando o output para outro comando (pipe)</h2>
 <p>Em vez de criar vários arquivos intermediários que tornam o trabalho mais confuso, podemos direcionar o output de uma operação diretamente para outra usando o pipe ‘|’:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href=""></a><span class="fu">sort</span> <span class="at">-n</span> lengths.txt <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n</span> 1</span>
-<span id="cb8-2"><a href=""></a><span class="fu">wc</span> <span class="at">-l</span> <span class="pp">*</span>.pdb <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-n</span> <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n</span> 1</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href=""></a><span class="fu">sort</span> <span class="at">-n</span> lengths.txt <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n</span> 1</span>
+<span id="cb23-2"><a href=""></a><span class="fu">wc</span> <span class="at">-l</span> <span class="pp">*</span>.pdb <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-n</span> <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n</span> 1</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="exercício---combinando-múltiplos-comandos" class="slide level2">
 <h2>Exercício - Combinando múltiplos comandos</h2>
@@ -502,7 +647,7 @@ Julia Apolonio &amp; João Cavalcante
 <li><p>Como em qualquer outra linguagem, laços permitem que você realize uma mesma ação várias vezes, em sequência.</p></li>
 <li><p>Mão na massa! Vamos supor que temos centenas de genomas, e queremos ver identificação de cada um desses bichos, que está na segunda linha de cada genoma. Você talvez pense em:</p></li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href=""></a><span class="fu">head</span> <span class="at">-n</span> 2 genoma.dat <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 1</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href=""></a><span class="fu">head</span> <span class="at">-n</span> 2 genoma.dat <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 1</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>Mas nós temos centenas de arquivos!</li>
 </ul>
@@ -512,34 +657,34 @@ Julia Apolonio &amp; João Cavalcante
 <ul>
 <li>A estrutura geral de um laço simples em Bash é a seguinte:</li>
 </ul>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href=""></a><span class="co"># "para cada coisa na lista de coisas"</span></span>
-<span id="cb10-2"><a href=""></a><span class="co"># coisa é um nome arbitrário!</span></span>
-<span id="cb10-3"><a href=""></a><span class="cf">for</span> coisa <span class="kw">in</span> lista_de_coisas </span>
-<span id="cb10-4"><a href=""></a><span class="co"># A palavra "do" indica o início do bloco </span></span>
-<span id="cb10-5"><a href=""></a><span class="co"># da ação a ser realizada</span></span>
-<span id="cb10-6"><a href=""></a><span class="cf">do</span> </span>
-<span id="cb10-7"><a href=""></a>    <span class="co"># Não precisa indentar, mas ajuda.</span></span>
-<span id="cb10-8"><a href=""></a>    <span class="ex">comando_a_executar</span> <span class="va">$coisa</span> </span>
-<span id="cb10-9"><a href=""></a><span class="co"># A palavra "done" indica o fim de um laço</span></span>
-<span id="cb10-10"><a href=""></a><span class="cf">done</span>  </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href=""></a><span class="co"># "para cada coisa na lista de coisas"</span></span>
+<span id="cb25-2"><a href=""></a><span class="co"># coisa é um nome arbitrário!</span></span>
+<span id="cb25-3"><a href=""></a><span class="cf">for</span> coisa <span class="kw">in</span> lista_de_coisas </span>
+<span id="cb25-4"><a href=""></a><span class="co"># A palavra "do" indica o início do bloco </span></span>
+<span id="cb25-5"><a href=""></a><span class="co"># da ação a ser realizada</span></span>
+<span id="cb25-6"><a href=""></a><span class="cf">do</span> </span>
+<span id="cb25-7"><a href=""></a>    <span class="co"># Não precisa indentar, mas ajuda.</span></span>
+<span id="cb25-8"><a href=""></a>    <span class="ex">comando_a_executar</span> <span class="va">$coisa</span> </span>
+<span id="cb25-9"><a href=""></a><span class="co"># A palavra "done" indica o fim de um laço</span></span>
+<span id="cb25-10"><a href=""></a><span class="cf">done</span>  </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="ok-e-agora-para-os-genomas" class="slide level2">
 <h2>Ok e agora para os genomas?</h2>
 <ul>
 <li>Mesma coisa que antes, mas vamos usar dados “reais” agora:</li>
 </ul>
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href=""></a><span class="cf">for</span> genoma <span class="kw">in</span> basilisk.dat minotaur.dat</span>
-<span id="cb11-2"><a href=""></a><span class="cf">do</span></span>
-<span id="cb11-3"><a href=""></a>     <span class="fu">head</span> <span class="at">-n</span> 2 <span class="va">$genoma</span> <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 1</span>
-<span id="cb11-4"><a href=""></a><span class="cf">done</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href=""></a><span class="cf">for</span> genoma <span class="kw">in</span> basilisk.dat minotaur.dat</span>
+<span id="cb26-2"><a href=""></a><span class="cf">do</span></span>
+<span id="cb26-3"><a href=""></a>     <span class="fu">head</span> <span class="at">-n</span> 2 <span class="va">$genoma</span> <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 1</span>
+<span id="cb26-4"><a href=""></a><span class="cf">done</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>Ou, para saber a identificação para cada arquivo:</li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href=""></a><span class="cf">for</span> genoma <span class="kw">in</span> basilisk.dat minotaur.dat</span>
-<span id="cb12-2"><a href=""></a><span class="cf">do</span></span>
-<span id="cb12-3"><a href=""></a>    <span class="bu">echo</span> <span class="va">$genoma</span></span>
-<span id="cb12-4"><a href=""></a>    <span class="fu">head</span> <span class="at">-n</span> 2 <span class="va">$genoma</span> <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 1</span>
-<span id="cb12-5"><a href=""></a><span class="cf">done</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href=""></a><span class="cf">for</span> genoma <span class="kw">in</span> basilisk.dat minotaur.dat</span>
+<span id="cb27-2"><a href=""></a><span class="cf">do</span></span>
+<span id="cb27-3"><a href=""></a>    <span class="bu">echo</span> <span class="va">$genoma</span></span>
+<span id="cb27-4"><a href=""></a>    <span class="fu">head</span> <span class="at">-n</span> 2 <span class="va">$genoma</span> <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 1</span>
+<span id="cb27-5"><a href=""></a><span class="cf">done</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="como-salvar-comandos-para-reutilizar-depois" class="slide level2">
 <h2>Como salvar comandos para reutilizar depois?</h2>
@@ -565,19 +710,19 @@ Julia Apolonio &amp; João Cavalcante
 <li><p>Para motivos didáticos, utilizaremos o <code>nano</code> nos exemplos posteriores.</p></li>
 <li><p>Vamos criar um novo script, para isso, execute:</p></li>
 </ul>
-<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href=""></a><span class="fu">nano</span> identifica_genoma.sh</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href=""></a><span class="fu">nano</span> identifica_genoma.sh</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="escrevendo-um-script-1" class="slide level2">
 <h2>Escrevendo um script</h2>
 <ul>
 <li>Dentro do script, vamos colocar o comando anterior, mas vamos substituir uma parte:</li>
 </ul>
-<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href=""></a><span class="fu">head</span> <span class="at">-n</span> 2 <span class="va">$1</span> <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 1</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href=""></a><span class="fu">head</span> <span class="at">-n</span> 2 <span class="va">$1</span> <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 1</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li><p>A variável <code>$1</code> indica o primeiro argumento na linha de comando quando esse script é executado, ou seja, o genoma. Também podemos usar <code>$2</code>, <code>$3</code>, etc… <code>$@</code> se refere a todos os argumentos.</p></li>
 <li><p>Salve o arquivo, e agora podemos executá-lo como tal:</p></li>
 </ul>
-<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href=""></a><span class="fu">bash</span> identifica_genoma.sh unicorn.dat</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href=""></a><span class="fu">bash</span> identifica_genoma.sh unicorn.dat</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="uma-breve-tangente-interpretadores-e-permissões" class="slide level2">
 <h2>Uma breve tangente: Interpretadores e permissões</h2>
@@ -587,9 +732,9 @@ Julia Apolonio &amp; João Cavalcante
 <ul>
 <li>Inclua no seu arquivo um <em>shebang</em>:</li>
 </ul>
-<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href=""></a><span class="co">#!/bin/bash</span></span>
-<span id="cb16-2"><a href=""></a></span>
-<span id="cb16-3"><a href=""></a><span class="fu">head</span> <span class="at">-n</span> 2 <span class="va">$1</span> <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 1</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href=""></a><span class="co">#!/bin/bash</span></span>
+<span id="cb31-2"><a href=""></a></span>
+<span id="cb31-3"><a href=""></a><span class="fu">head</span> <span class="at">-n</span> 2 <span class="va">$1</span> <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 1</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 </ul>
 </section>
 <section id="ok-mas-e-agora-para-executar" class="slide level2">
@@ -600,11 +745,11 @@ Julia Apolonio &amp; João Cavalcante
 <li>O comando <code>chmod</code> pode dar a qualquer arquivo de texto a capacidade de ser executado - Isso serve não só para bash, mas também Python, R, etc.</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href=""></a><span class="fu">chmod</span> +x identifica_genoma.sh</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href=""></a><span class="fu">chmod</span> +x identifica_genoma.sh</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>Agora podemos executar nosso script, com interpretadores e argumentos claramente definidos, assim:</li>
 </ul>
-<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href=""></a><span class="ex">./identifica_genoma.sh</span> unicorn.dat</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href=""></a><span class="ex">./identifica_genoma.sh</span> unicorn.dat</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>Nosso script agora virou um comando! Podendo ser utilizado em outros scripts!</li>
 </ul>
@@ -634,8 +779,8 @@ Julia Apolonio &amp; João Cavalcante
 <li>Que padrões são esses? <em>Expressões regulares</em>.</li>
 </ul></li>
 <li><p>Um uso comum de grep:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href=""></a><span class="co"># Buscar a palavra "Equus" em todos os arquivos .dat</span></span>
-<span id="cb19-2"><a href=""></a><span class="fu">grep</span> Equus <span class="pp">*</span>.dat</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<div class="sourceCode" id="cb34"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href=""></a><span class="co"># Buscar a palavra "Equus" em todos os arquivos .dat</span></span>
+<span id="cb34-2"><a href=""></a><span class="fu">grep</span> Equus <span class="pp">*</span>.dat</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 <li><p>No entanto, grep se torna realmente poderoso quando usamos expressões regulares</p></li>
 </ul>
 </section>
@@ -647,7 +792,7 @@ Julia Apolonio &amp; João Cavalcante
 <ul>
 <li>Por exemplo com grep:</li>
 </ul>
-<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href=""></a><span class="fu">grep</span> <span class="st">"Noss[a-zA-Z]*"</span> cancao_do_exilio.txt</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<div class="sourceCode" id="cb35"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href=""></a><span class="fu">grep</span> <span class="st">"Noss[a-zA-Z]*"</span> cancao_do_exilio.txt</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 </ul>
 </section>
 <section id="expressões-regulares" class="slide level2">
@@ -655,8 +800,8 @@ Julia Apolonio &amp; João Cavalcante
 <ul>
 <li>Expressões regulares (ou <em>regexes</em>), podem ficar ainda mais complexas!</li>
 </ul>
-<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href=""></a><span class="co"># Expressão regular para buscar um email numa sequência de texto</span></span>
-<span id="cb21-2"><a href=""></a><span class="fu">grep</span> <span class="at">-E</span> <span class="st">'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b'</span> texto.txt</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href=""></a><span class="co"># Expressão regular para buscar um email numa sequência de texto</span></span>
+<span id="cb36-2"><a href=""></a><span class="fu">grep</span> <span class="at">-E</span> <span class="st">'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b'</span> texto.txt</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>Não cobriremos grep e expressões regulares a fundo aqui, mas saiba que são essenciais para qualquer pessoa trabalhando na linha de comando, sobretudo para bioinformatas.
 <ul>
@@ -671,7 +816,7 @@ Julia Apolonio &amp; João Cavalcante
 <ul>
 <li>Vamos contar o número de ocorrências da palavra “terra” na Canção do Exílio:</li>
 </ul>
-<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href=""></a><span class="fu">grep</span> <span class="at">-c</span> terra cancao_do_exilio.txt</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<div class="sourceCode" id="cb37"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href=""></a><span class="fu">grep</span> <span class="at">-c</span> terra cancao_do_exilio.txt</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 </ul>
 </section>
 
@@ -685,10 +830,10 @@ Julia Apolonio &amp; João Cavalcante
 <ul>
 <li><code>xargs</code> é um comando que transforma a saída de outros comandos de forma a facilitar a execução encadeada. Pois a quebra de linhas ou espaços pode dificultar a execução de outro comando em sequência.</li>
 </ul>
-<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href=""></a><span class="co"># Isso não funciona</span></span>
-<span id="cb23-2"><a href=""></a><span class="fu">ls</span> <span class="pp">*</span>pdb <span class="kw">|</span> <span class="fu">grep</span> AUTHOR</span>
-<span id="cb23-3"><a href=""></a><span class="co"># Isso funciona!</span></span>
-<span id="cb23-4"><a href=""></a><span class="fu">ls</span> <span class="pp">*</span>pdb <span class="kw">|</span> <span class="fu">xargs</span> grep AUTHOR</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href=""></a><span class="co"># Isso não funciona</span></span>
+<span id="cb38-2"><a href=""></a><span class="fu">ls</span> <span class="pp">*</span>pdb <span class="kw">|</span> <span class="fu">grep</span> AUTHOR</span>
+<span id="cb38-3"><a href=""></a><span class="co"># Isso funciona!</span></span>
+<span id="cb38-4"><a href=""></a><span class="fu">ls</span> <span class="pp">*</span>pdb <span class="kw">|</span> <span class="fu">xargs</span> grep AUTHOR</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="gnu-parallel" class="slide level2">
 <h2>GNU parallel</h2>
@@ -696,7 +841,7 @@ Julia Apolonio &amp; João Cavalcante
 <li><p><code>parallel</code> é um comando que por padrão não vem em algumas distribuições, mas é super útil! Use ele para paralelizar a execução de comandos.</p></li>
 <li><p>Por exemplo, vamos compactar vários arquivos .pdb:</p></li>
 </ul>
-<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href=""></a><span class="fu">ls</span> <span class="pp">*</span>pdb <span class="kw">|</span> <span class="ex">parallel</span> gzip</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href=""></a><span class="fu">ls</span> <span class="pp">*</span>pdb <span class="kw">|</span> <span class="ex">parallel</span> gzip</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <center>
 <img data-src="https://i.imgur.com/LTnMvA4.png" width="400">
 </center>
