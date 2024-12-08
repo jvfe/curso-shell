@@ -150,14 +150,60 @@ chmod +x identifica_genoma.sh
 # Avançando nos comandos I
 - ### Grep e Expressões Regulares
 
-## O que danado é `grep`?
+## O que danado é grep?
 
-- ***G**lobal **R**egular **E**xpression search and **Print***
+- _**G**lobal **R**egular **E**xpression search and **Print**_
 
 - Uma forma de achar padrões em arquivo de texto
+  - Que padrões são esses? *Expressões regulares*.
 
----
+- Um uso comum de grep:
+  ```bash
+  # Buscar a palavra "Equus" em todos os arquivos .dat
+  grep Equus *.dat
+  ```
 
-- Grep/Regex
-- Xargs
-- Parallel
+- No entanto, grep se torna realmente poderoso quando usamos expressões regulares
+
+## O que são expressões regulares?
+
+- São formas de definir padrões de busca textual regrados.
+
+- Por exemplo, uma expressão regular para achar a palavra "Nossa" seria apenas a
+palavra propriamente dita. Mas para buscar "Nossa", "Nosso", "Nossas", "Nossos",
+você faria algo assim: `Noss[a-zA-Z]*`
+  - Por exemplo com grep:
+  
+  ```bash
+  grep "Noss[a-zA-Z]*" cancao_do_exilio.txt
+  ```
+
+## Expressões regulares 
+
+- Expressões regulares (ou *regexes*), podem ficar ainda mais complexas!
+
+```bash
+# Expressão regular para buscar um email numa sequência de texto
+grep -E '\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b' texto.txt
+```
+
+- Não cobriremos grep e expressões regulares a fundo aqui, mas saiba que são
+essenciais para qualquer pessoa trabalhando na linha de comando, sobretudo para
+bioinformatas.
+  - [Esse site](https://regexlearn.com/pt-br/learn/regex101) possui um tutorial
+  interativo de regex caso queira aprender mais a respeito.
+  
+# Mais sobre grep
+
+- O que mostramos aqui sobre grep é apenas o básico, grep pode ficar,
+assim como as *regexes*, ainda mais complexo! Dê uma olhada no seu manual (`man grep`) para saber mais a respeito. Mas aqui uma palhinha:
+  - Vamos contar o número de ocorrências da palavra "terra" na Canção do Exílio:
+  ```bash
+  grep -c terra cancao_do_exilio.txt
+  ```
+  
+# Outras ferramentas de linha comando
+
+## xargs
+
+## GNU parallel

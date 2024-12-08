@@ -534,19 +534,65 @@ Julia Apolonio &amp; João Cavalcante
 </ul>
 </section>
 <section id="o-que-danado-é-grep" class="slide level2">
-<h2>O que danado é <code>grep</code>?</h2>
+<h2>O que danado é grep?</h2>
 <ul>
 <li><p><em><strong>G</strong>lobal <strong>R</strong>egular <strong>E</strong>xpression search and <strong>Print</strong></em></p></li>
-<li><p>Uma forma de achar padrões em arquivo de texto</p></li>
+<li><p>Uma forma de achar padrões em arquivo de texto</p>
+<ul>
+<li>Que padrões são esses? <em>Expressões regulares</em>.</li>
+</ul></li>
+<li><p>Um uso comum de grep:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href=""></a><span class="co"># Buscar a palavra "Equus" em todos os arquivos .dat</span></span>
+<span id="cb11-2"><a href=""></a><span class="fu">grep</span> Equus <span class="pp">*</span>.dat</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>No entanto, grep se torna realmente poderoso quando usamos expressões regulares</p></li>
 </ul>
 </section>
-<section class="slide level2">
-
+<section id="o-que-são-expressões-regulares" class="slide level2">
+<h2>O que são expressões regulares?</h2>
 <ul>
-<li>Grep/Regex</li>
-<li>Xargs</li>
-<li>Parallel</li>
+<li><p>São formas de definir padrões de busca textual regrados.</p></li>
+<li><p>Por exemplo, uma expressão regular para achar a palavra “Nossa” seria apenas a palavra propriamente dita. Mas para buscar “Nossa”, “Nosso”, “Nossas”, “Nossos”, você faria algo assim: <code>Noss[a-zA-Z]*</code></p>
+<ul>
+<li>Por exemplo com grep:</li>
 </ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href=""></a><span class="fu">grep</span> <span class="st">"Noss[a-zA-Z]*"</span> cancao_do_exilio.txt</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ul>
+</section>
+<section id="expressões-regulares" class="slide level2">
+<h2>Expressões regulares</h2>
+<ul>
+<li>Expressões regulares (ou <em>regexes</em>), podem ficar ainda mais complexas!</li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href=""></a><span class="co"># Expressão regular para buscar um email numa sequência de texto</span></span>
+<span id="cb13-2"><a href=""></a><span class="fu">grep</span> <span class="at">-E</span> <span class="st">'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b'</span> texto.txt</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Não cobriremos grep e expressões regulares a fundo aqui, mas saiba que são essenciais para qualquer pessoa trabalhando na linha de comando, sobretudo para bioinformatas.
+<ul>
+<li><a href="https://regexlearn.com/pt-br/learn/regex101">Esse site</a> possui um tutorial interativo de regex caso queira aprender mais a respeito.</li>
+</ul></li>
+</ul>
+</section></section>
+<section id="mais-sobre-grep" class="title-slide slide level1 center">
+<h1>Mais sobre grep</h1>
+<ul>
+<li>O que mostramos aqui sobre grep é apenas o básico, grep pode ficar, assim como as <em>regexes</em>, ainda mais complexo! Dê uma olhada no seu manual (<code>man grep</code>) para saber mais a respeito. Mas aqui uma palhinha:
+<ul>
+<li>Vamos contar o número de ocorrências da palavra “terra” na Canção do Exílio:</li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href=""></a><span class="fu">grep</span> <span class="at">-c</span> terra cancao_do_exilio.txt</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ul>
+</section>
+
+<section>
+<section id="outras-ferramentas-de-linha-comando" class="title-slide slide level1 center">
+<h1>Outras ferramentas de linha comando</h1>
+
+</section>
+<section id="xargs" class="slide level2">
+<h2>xargs</h2>
+</section>
+<section id="gnu-parallel" class="slide level2">
+<h2>GNU parallel</h2>
 <div class="quarto-auto-generated-content">
 <p><img src="https://i.imgur.com/S7ZRJbj.png" class="slide-logo"></p>
 <div class="footer footer-default">
