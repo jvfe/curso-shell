@@ -1,3 +1,336 @@
-# Resumo {.unnumbered}
+---
+title: "Introdução à Linha de Comando Linux"
+author: "Julia Apolonio & João Cavalcante"
+lang: pt
+format: 
+  revealjs:
+    theme: night
+    slide-number: true
+    footer: "Introdução à linha de comando do Linux"
+    chalkboard: true
+    multiplex: true # audience can follow along w/ mobile devices
+    fragments: true
+    logo: https://i.imgur.com/S7ZRJbj.png
+    smaller: true
+    css: main.css
+---
 
-Este minicurso de introdução à linha de comando do Linux é voltado para iniciantes que desejam aprender a manipular arquivos e diretórios, automatizar tarefas e utilizar recursos avançados da linha de comando. Serão abordados os comandos básicos para criar, deletar, editar, visualizar e filtrar arquivos, além de localizar arquivos no sistema. Também aprenderemos a usar o histórico de comandos, redirecionamento de entrada e saída com pipes, e fluxos de dados. O curso incluirá noções sobre loops e scripts, além de ferramentas como 'xargs' e 'parallel' para otimização de tarefas. Ao final, os alunos estarão aptos a utilizar a linha de comando com mais confiança e eficiência.
+# Fluxos de dados
+
+## Olhando para dentro dos arquivos
+
+Agora que aprendemos a navegar diretórios, vamos mexer com arquivos. No diretório em que estamos, temos uma série de arquivos no formato Protein Data Bank (pdb). Vamos usar o comando 'wc', de **w**ord **c**ount:
+
+``` bash
+wc cubane.pdb #linhas, palavras e caracteres no arquivo
+wc -l #só linhas
+```
+
+## Exibir conteúdo
+
+Mas o que tem nesse arquivo?
+
+``` bash
+cat cubane.pdb 
+```
+
+Se o seu arquivo for muito grande, é melhor usar um exibidor interativo:
+
+``` bash
+less cubane.pdb 
+```
+
+## Head e Tail
+
+Às vezes, você só quer ver uma parte do arquivo. Você pode usar os comandos 'head' e 'tail':
+
+``` bash
+head cubane.pdb
+head -n 5 cubane.pdb
+head -n 5 cubane.pdb ethane.pdb
+tail cubane.pdb
+tail -n 5 cubane.pdb
+```
+
+## Redirecionamento
+
+Podemos registar o output de um comando dentro de um arquivo por meio do símbolo '\>':
+
+``` bash
+wc -l *.pdb > lengths.txt
+cat lengths.txt
+```
+
+Agora, temos um arquivo chamado *lengths.txt* que possui o número de linhas de todos os arquivos .pdb do diretório.
+
+## Filtrar e ordenar os conteúdos de um arquivo
+
+Nós podemos ordenar as linhas de um arquivo usando o comando 'sort':
+
+``` bash
+sort -n lengths.txt
+sort lengths.txt #nesse caso, o ordenamento será por ordem alfabética
+```
+
+E da mesma maneira, podemos direcionar o output do ordenamento para um novo arquivo:
+
+``` bash
+sort -n lengths.txt > sorted-lengths.txt
+head -n 1 sorted-lengths.txt
+```
+
+Obs.: em Shell, é uma péssima prática direcionar o output de uma operação para o mesmo arquivo, isso pode comprometer a integridade dele!
+
+## Passando o output para outro comando (pipe)
+
+Em vez de criar vários arquivos intermediários que tornam o trabalho mais confuso, podemos direcionar o output de uma operação diretamente para outra usando o pipe '\|':
+
+``` bash
+sort -n lengths.txt | head -n 1
+wc -l *.pdb | sort -n | head -n 1
+```
+
+## Exercício - Combinando múltiplos comandos
+
+-   Volte ao Home Directory
+
+-   Navegue até a pasta *animal-counts,* dentro de *exercise-data* e localize o arquivo *animals.csv*
+
+-   Inspecione o arquivo. Quantas linhas ele tem? Qual o formato do dado dele?
+
+-   Gere o arquivo *exercicio.txt* que ordena de forma alfabética reversa as 5 primeiras linhas do arquivo *animals.txt* e dispõe apenas os 3 últimos resultados da ordenação.
+
+# Automatizando tudo! 
+- ### *Loops* e *Scripts*
+
+## Como repetir uma ação várias vezes?
+
+- *Loops* ou, em bom português, laços;
+
+- Como em qualquer outra linguagem, laços permitem que você
+realize uma mesma ação várias vezes, em sequência.
+
+- Mão na massa! Vamos supor que temos centenas de genomas, e queremos ver  identificação de cada um desses bichos, que está na segunda linha de cada genoma. 
+Você talvez pense em:
+
+```bash
+head -n 2 genoma.dat | tail -n 1
+```
+
+- Mas nós temos centenas de arquivos!
+
+## Introduzindo laços
+
+- A estrutura geral de um laço simples em Bash é a seguinte:
+
+```bash
+# "para cada coisa na lista de coisas"
+# coisa é um nome arbitrário!
+for coisa in lista_de_coisas 
+# A palavra "do" indica o início do bloco 
+# da ação a ser realizada
+do 
+    # Não precisa indentar, mas ajuda.
+    comando_a_executar $coisa 
+# A palavra "done" indica o fim de um laço
+done  
+```
+
+## Ok e agora para os genomas?
+
+- Mesma coisa que antes, mas vamos usar dados "reais" agora:
+
+```bash
+for genoma in basilisk.dat minotaur.dat
+do
+     head -n 2 $genoma | tail -n 1
+done
+```
+
+- Ou, para saber a identificação para cada arquivo:
+
+```bash
+for genoma in basilisk.dat minotaur.dat
+do
+    echo $genoma
+    head -n 2 $genoma | tail -n 1
+done
+```
+
+## Como salvar comandos para reutilizar depois?
+
+- A resposta: *Scripts*!
+  - Arquivos de texto contendo código, que pode ser interpretado
+  e re-executado múltiplas vezes.
+
+- Vamos supor que novos genomas continuam entrando no seu banco de dados,
+e agora você quer uma forma fácil de re-executar a identificação do genoma.
+  - Vamos então fazer um *script* que execute os comandos anteriores.
+
+## Escrevendo um script
+
+- Existem inúmeros editores de texto possíveis, mas, se você está restrito à linha de comando, provavelmente usará:
+  - `nano`
+  - `vim`
+
+- Para motivos didáticos, utilizaremos o `nano` nos exemplos posteriores.
+
+- Vamos criar um novo script, para isso, execute:
+
+```bash
+nano identifica_genoma.sh
+```
+
+## Escrevendo um script
+
+- Dentro do script, vamos colocar o comando anterior, mas vamos substituir uma parte:
+
+```bash
+head -n 2 $1 | tail -n 1
+```
+
+- A variável `$1` indica o primeiro argumento na linha de comando quando esse script
+é executado, ou seja, o genoma. Também podemos usar `$2`, `$3`, etc... `$@` se refere
+a todos os argumentos.
+
+- Salve o arquivo, e agora podemos executá-lo como tal:
+
+```bash
+bash identifica_genoma.sh unicorn.dat
+```
+
+## Uma breve tangente: Interpretadores e permissões
+
+- Você notou como usamos `bash` no comando anterior? Isso é um comando por si só,
+que diz que a linguagem `bash` deve interpretar o conteúdo textual do arquivo.
+
+- Mas isso pode ser ainda mais simples! Com apenas dois passos:
+  - Inclua no seu arquivo um *shebang*:
+  ```bash
+  #!/bin/bash
+  
+  head -n 2 $1 | tail -n 1
+  ```
+
+## Ok, mas e agora para executar?
+
+- Agora para executar seu programa propriamente dito, precisamos primeiro mudar suas
+permissões:
+  - O comando `chmod` pode dar a qualquer arquivo de texto a capacidade de ser
+  executado - Isso serve não só para bash, mas também Python, R, etc.
+  
+```bash
+chmod +x identifica_genoma.sh
+```
+
+- Agora podemos executar nosso script, com interpretadores e argumentos claramente definidos, assim:
+
+```bash
+./identifica_genoma.sh unicorn.dat
+```
+
+- Nosso script agora virou um comando! Podendo ser utilizado em outros scripts!
+
+# Exercício - 10 minutos
+
+- Se direcione ao diretório `exercise-data/alkanes`
+
+- Lá, escreva um script chamado `junta_pdb.sh`. Esse script deve fazer um laço
+em todos os arquivos .pdb no diretório atual, con`cat`enando todos eles em um único
+arquivo. Para isso, use o direcionador de saída `>>`.
+
+- Faça seu script executável (adicione o *shebang* e modifique as permissões).
+
+# Avançando nos comandos I
+- ### Grep e Expressões Regulares
+
+## O que danado é grep?
+
+- _**G**lobal **R**egular **E**xpression search and **Print**_
+
+- Uma forma de achar padrões em arquivo de texto
+  - Que padrões são esses? *Expressões regulares*.
+
+- Um uso comum de grep:
+  ```bash
+  # Buscar a palavra "Equus" em todos os arquivos .dat
+  grep Equus *.dat
+  ```
+
+- No entanto, grep se torna realmente poderoso quando usamos expressões regulares
+
+## O que são expressões regulares?
+
+- São formas de definir padrões de busca textual regrados.
+
+- Por exemplo, uma expressão regular para achar a palavra "Nossa" seria apenas a
+palavra propriamente dita. Mas para buscar "Nossa", "Nosso", "Nossas", "Nossos",
+você faria algo assim: `Noss[a-zA-Z]*`
+  - Por exemplo com grep:
+  
+  ```bash
+  grep "Noss[a-zA-Z]*" cancao_do_exilio.txt
+  ```
+
+## Expressões regulares 
+
+- Expressões regulares (ou *regexes*), podem ficar ainda mais complexas!
+
+```bash
+# Expressão regular para buscar um email numa sequência de texto
+grep -E '\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b' texto.txt
+```
+
+- Não cobriremos grep e expressões regulares a fundo aqui, mas saiba que são
+essenciais para qualquer pessoa trabalhando na linha de comando, sobretudo para
+bioinformatas.
+  - [Esse site](https://regexlearn.com/pt-br/learn/regex101) possui um tutorial
+  interativo de regex caso queira aprender mais a respeito.
+  
+# Mais sobre grep
+
+- O que mostramos aqui sobre grep é apenas o básico, grep pode ficar,
+assim como as *regexes*, ainda mais complexo! Dê uma olhada no seu manual (`man grep`) para saber mais a respeito. Mas aqui uma palhinha:
+  - Vamos contar o número de ocorrências da palavra "terra" na Canção do Exílio:
+  ```bash
+  grep -c terra cancao_do_exilio.txt
+  ```
+  
+# Avançando nos comandos II
+
+## xargs
+
+- `xargs` é um comando que transforma a saída de outros comandos de forma a facilitar
+a execução encadeada. Pois a quebra de linhas ou espaços pode dificultar a execução de outro comando em sequência.
+
+
+```bash
+# Isso não funciona
+ls *pdb | grep AUTHOR
+# Isso funciona!
+ls *pdb | xargs grep AUTHOR
+```
+
+## GNU parallel
+
+- `parallel` é um comando que por padrão não vem em algumas distribuições, mas é super útil! Use ele para paralelizar a execução de comandos.
+
+- Por exemplo, vamos compactar vários arquivos .pdb:
+
+```bash
+ls *pdb | parallel gzip
+```
+
+<center>
+![](https://i.imgur.com/LTnMvA4.png){width=400}
+</center>
+
+# Para aprender mais
+
+- [Linux Journey](https://linuxjourney.com/change_locale/pt-BR)
+
+- [Software Carpentry](https://swcarpentry.github.io/shell-novice/)
+
+- [HackerRank](https://www.hackerrank.com/domains/shell)
+
+# Obrigado!
