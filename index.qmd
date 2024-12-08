@@ -10,7 +10,7 @@ format:
     chalkboard: true
     multiplex: true # audience can follow along w/ mobile devices
     fragments: true
-    logo: https://i.imgur.com/S7ZRJbj.png
+    logo: ./biome-shell-400.png
     smaller: true
     css: main.css
 ---
