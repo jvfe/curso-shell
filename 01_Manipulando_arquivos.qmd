@@ -2,7 +2,11 @@
 
 ## O que é o Shell?
 
-Tipicamente, quando interagimos com um computador, utilizamos o que é chamado *graphical user interface* (ou GUI), que funciona através de interações com o *mouse.*
+-   Tipicamente, quando interagimos com um computador, utilizamos *graphical user interface* (ou GUI), que funciona através de interações com o *mouse.*
+
+-   É difícil fornecer instruções complexas para uma GUI, com muitos passos ou que envolvam várias operações sequenciais. Por exemplo, se você precisar copiar a terceira linha de mil arquivos de texto em centenas de diferentes diretórios.
+
+-   Portanto, por fazerem tais atividades triviais, as **interfaces de linha de comando** (CLIs) são indispensáveis. Nesse contexto, temos o ***Shell***, o programa onde o usuário digita comandos, que serão então executados e interpretados. O *Shell* mais popular hoje em dia, e presente em sistemas operacionais *Unix*, como o Linux, é o **Bash**.
 
 ## Navegando por arquivos e diretórios
 
