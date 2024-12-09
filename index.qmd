@@ -17,6 +17,36 @@ format:
 
 # Manipulando arquivos
 
+## Um pouco sobre mim...
+
+:::: {.columns}
+
+::: {.column width="60%"}
+
+
+Atividades de Pesquisa:
+
+- Mestranda em Bioinformática, UFRN
+  - GWAS e desenvolvimento de software, orientada pela Dr. Vasiliki Lagou
+
+Projetos em andamento:
+
+- [Causeway: um pipeline para screening de genes efetores com Randomização Mendeliana e colocalização](https://github.com/juliaapolonio/MR_workflow)
+- Descoberta de novos alvos de fármacos para depressão integrando GWAS multi-fenótipo e dados de QTL
+
+:::
+
+::: {.column width="40%"}
+<center>
+![](https://avatars.githubusercontent.com/u/19909582?v=4)
+
+[LinkedIn](https://www.linkedin.com/in/juliaapolonio)
+[Github](https://github.com/juliaapolonio)
+</center>
+
+:::
+::::
+
 ## O que é o Shell?
 
 -   Tipicamente, quando interagimos com um computador, utilizamos *graphical user interface* (ou GUI), que funciona através de interações com o *mouse.*
