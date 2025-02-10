@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.553">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="João V. F. Cavalcante">
+<meta name="author" content="Julia Apolonio Amorim">
+
+<title>Introdução à Linha de Comando Linux</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="index_long_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_long_files/libs/quarto-html/quarto.js"></script>
+<script src="index_long_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_long_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="index_long_files/libs/quarto-html/anchor.min.js"></script>
+<link href="index_long_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_long_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="index_long_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="index_long_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="index_long_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Índice</h2>
+   
+  <ul>
+  <li><a href="#manipulando-arquivos" id="toc-manipulando-arquivos" class="nav-link active" data-scroll-target="#manipulando-arquivos"><span class="header-section-number">1</span> Manipulando arquivos</a>
+  <ul class="collapse">
+  <li><a href="#o-que-é-o-shell" id="toc-o-que-é-o-shell" class="nav-link" data-scroll-target="#o-que-é-o-shell"><span class="header-section-number">1.1</span> O que é o Shell?</a></li>
+  <li><a href="#navegando-por-arquivos-e-diretórios" id="toc-navegando-por-arquivos-e-diretórios" class="nav-link" data-scroll-target="#navegando-por-arquivos-e-diretórios"><span class="header-section-number">1.2</span> Navegando por arquivos e diretórios</a></li>
+  <li><a href="#hello-world" id="toc-hello-world" class="nav-link" data-scroll-target="#hello-world"><span class="header-section-number">1.3</span> Hello World!</a></li>
+  <li><a href="#comandos-no-shell" id="toc-comandos-no-shell" class="nav-link" data-scroll-target="#comandos-no-shell"><span class="header-section-number">1.4</span> Comandos no shell</a></li>
+  <li><a href="#diretório-de-trabalho" id="toc-diretório-de-trabalho" class="nav-link" data-scroll-target="#diretório-de-trabalho"><span class="header-section-number">1.5</span> Diretório de trabalho</a></li>
+  <li><a href="#movendo-entre-pastas" id="toc-movendo-entre-pastas" class="nav-link" data-scroll-target="#movendo-entre-pastas"><span class="header-section-number">1.6</span> Movendo entre pastas</a></li>
+  <li><a href="#opções-do-ls" id="toc-opções-do-ls" class="nav-link" data-scroll-target="#opções-do-ls"><span class="header-section-number">1.7</span> Opções do ls</a></li>
+  <li><a href="#dezipar-arquivos" id="toc-dezipar-arquivos" class="nav-link" data-scroll-target="#dezipar-arquivos"><span class="header-section-number">1.8</span> Dezipar arquivos</a></li>
+  <li><a href="#navegando-para-trás" id="toc-navegando-para-trás" class="nav-link" data-scroll-target="#navegando-para-trás"><span class="header-section-number">1.9</span> Navegando para trás</a></li>
+  <li><a href="#arquivos-ocultos" id="toc-arquivos-ocultos" class="nav-link" data-scroll-target="#arquivos-ocultos"><span class="header-section-number">1.10</span> Arquivos ocultos</a></li>
+  <li><a href="#criar-mover-copiar-e-deletar-arquivos" id="toc-criar-mover-copiar-e-deletar-arquivos" class="nav-link" data-scroll-target="#criar-mover-copiar-e-deletar-arquivos"><span class="header-section-number">1.11</span> Criar, mover, copiar e deletar arquivos</a></li>
+  <li><a href="#regras-básicas-para-nomear-um-diretório" id="toc-regras-básicas-para-nomear-um-diretório" class="nav-link" data-scroll-target="#regras-básicas-para-nomear-um-diretório"><span class="header-section-number">1.12</span> Regras básicas para nomear um diretório:</a></li>
+  <li><a href="#criar-um-arquivo" id="toc-criar-um-arquivo" class="nav-link" data-scroll-target="#criar-um-arquivo"><span class="header-section-number">1.13</span> Criar um arquivo</a></li>
+  <li><a href="#comandos-do-nano" id="toc-comandos-do-nano" class="nav-link" data-scroll-target="#comandos-do-nano"><span class="header-section-number">1.14</span> Comandos do nano</a></li>
+  <li><a href="#deletar-arquivos" id="toc-deletar-arquivos" class="nav-link" data-scroll-target="#deletar-arquivos"><span class="header-section-number">1.15</span> Deletar arquivos</a></li>
+  <li><a href="#mover-arquivos" id="toc-mover-arquivos" class="nav-link" data-scroll-target="#mover-arquivos"><span class="header-section-number">1.16</span> Mover arquivos</a></li>
+  <li><a href="#copiar-arquivos" id="toc-copiar-arquivos" class="nav-link" data-scroll-target="#copiar-arquivos"><span class="header-section-number">1.17</span> Copiar arquivos</a></li>
+  </ul></li>
+  <li><a href="#fluxos-de-dados" id="toc-fluxos-de-dados" class="nav-link" data-scroll-target="#fluxos-de-dados"><span class="header-section-number">2</span> Fluxos de dados</a>
+  <ul class="collapse">
+  <li><a href="#olhando-para-dentro-dos-arquivos" id="toc-olhando-para-dentro-dos-arquivos" class="nav-link" data-scroll-target="#olhando-para-dentro-dos-arquivos"><span class="header-section-number">2.1</span> Olhando para dentro dos arquivos</a></li>
+  <li><a href="#exibir-conteúdo" id="toc-exibir-conteúdo" class="nav-link" data-scroll-target="#exibir-conteúdo"><span class="header-section-number">2.2</span> Exibir conteúdo</a></li>
+  <li><a href="#head-e-tail" id="toc-head-e-tail" class="nav-link" data-scroll-target="#head-e-tail"><span class="header-section-number">2.3</span> Head e Tail</a></li>
+  <li><a href="#redirecionamento" id="toc-redirecionamento" class="nav-link" data-scroll-target="#redirecionamento"><span class="header-section-number">2.4</span> Redirecionamento</a></li>
+  <li><a href="#filtrar-e-ordenar-os-conteúdos-de-um-arquivo" id="toc-filtrar-e-ordenar-os-conteúdos-de-um-arquivo" class="nav-link" data-scroll-target="#filtrar-e-ordenar-os-conteúdos-de-um-arquivo"><span class="header-section-number">2.5</span> Filtrar e ordenar os conteúdos de um arquivo</a></li>
+  <li><a href="#passando-o-output-para-outro-comando-pipe" id="toc-passando-o-output-para-outro-comando-pipe" class="nav-link" data-scroll-target="#passando-o-output-para-outro-comando-pipe"><span class="header-section-number">2.6</span> Passando o output para outro comando (pipe)</a></li>
+  <li><a href="#exercício---combinando-múltiplos-comandos" id="toc-exercício---combinando-múltiplos-comandos" class="nav-link" data-scroll-target="#exercício---combinando-múltiplos-comandos"><span class="header-section-number">2.7</span> Exercício - Combinando múltiplos comandos</a></li>
+  </ul></li>
+  <li><a href="#loops-scripts" id="toc-loops-scripts" class="nav-link" data-scroll-target="#loops-scripts"><span class="header-section-number">3</span> Loops &amp; Scripts</a>
+  <ul class="collapse">
+  <li><a href="#como-repetir-uma-ação-várias-vezes" id="toc-como-repetir-uma-ação-várias-vezes" class="nav-link" data-scroll-target="#como-repetir-uma-ação-várias-vezes"><span class="header-section-number">3.1</span> Como repetir uma ação várias vezes?</a></li>
+  <li><a href="#introduzindo-laços" id="toc-introduzindo-laços" class="nav-link" data-scroll-target="#introduzindo-laços"><span class="header-section-number">3.2</span> Introduzindo laços</a></li>
+  <li><a href="#ok-e-agora-para-os-genomas" id="toc-ok-e-agora-para-os-genomas" class="nav-link" data-scroll-target="#ok-e-agora-para-os-genomas"><span class="header-section-number">3.3</span> Ok e agora para os genomas?</a></li>
+  <li><a href="#como-salvar-comandos-para-reutilizar-depois" id="toc-como-salvar-comandos-para-reutilizar-depois" class="nav-link" data-scroll-target="#como-salvar-comandos-para-reutilizar-depois"><span class="header-section-number">3.4</span> Como salvar comandos para reutilizar depois?</a></li>
+  <li><a href="#escrevendo-um-script" id="toc-escrevendo-um-script" class="nav-link" data-scroll-target="#escrevendo-um-script"><span class="header-section-number">3.5</span> Escrevendo um script</a></li>
+  <li><a href="#escrevendo-um-script-1" id="toc-escrevendo-um-script-1" class="nav-link" data-scroll-target="#escrevendo-um-script-1"><span class="header-section-number">3.6</span> Escrevendo um script</a></li>
+  <li><a href="#uma-breve-tangente-interpretadores-e-permissões" id="toc-uma-breve-tangente-interpretadores-e-permissões" class="nav-link" data-scroll-target="#uma-breve-tangente-interpretadores-e-permissões"><span class="header-section-number">3.7</span> Uma breve tangente: Interpretadores e permissões</a></li>
+  <li><a href="#ok-mas-e-agora-para-executar" id="toc-ok-mas-e-agora-para-executar" class="nav-link" data-scroll-target="#ok-mas-e-agora-para-executar"><span class="header-section-number">3.8</span> Ok, mas e agora para executar?</a></li>
+  <li><a href="#exercício" id="toc-exercício" class="nav-link" data-scroll-target="#exercício"><span class="header-section-number">3.9</span> Exercício</a></li>
+  </ul></li>
+  <li><a href="#avançando-nos-comandos-i---grep-e-expressões-regulares" id="toc-avançando-nos-comandos-i---grep-e-expressões-regulares" class="nav-link" data-scroll-target="#avançando-nos-comandos-i---grep-e-expressões-regulares"><span class="header-section-number">4</span> Avançando nos comandos I - Grep e Expressões Regulares</a>
+  <ul class="collapse">
+  <li><a href="#o-que-danado-é-grep" id="toc-o-que-danado-é-grep" class="nav-link" data-scroll-target="#o-que-danado-é-grep"><span class="header-section-number">4.1</span> O que danado é grep?</a></li>
+  <li><a href="#o-que-são-expressões-regulares" id="toc-o-que-são-expressões-regulares" class="nav-link" data-scroll-target="#o-que-são-expressões-regulares"><span class="header-section-number">4.2</span> O que são expressões regulares?</a></li>
+  <li><a href="#expressões-regulares" id="toc-expressões-regulares" class="nav-link" data-scroll-target="#expressões-regulares"><span class="header-section-number">4.3</span> Expressões regulares</a></li>
+  <li><a href="#mais-sobre-grep" id="toc-mais-sobre-grep" class="nav-link" data-scroll-target="#mais-sobre-grep"><span class="header-section-number">4.4</span> Mais sobre grep</a></li>
+  </ul></li>
+  <li><a href="#avançando-nos-comandos-ii" id="toc-avançando-nos-comandos-ii" class="nav-link" data-scroll-target="#avançando-nos-comandos-ii"><span class="header-section-number">5</span> Avançando nos comandos II</a>
+  <ul class="collapse">
+  <li><a href="#xargs" id="toc-xargs" class="nav-link" data-scroll-target="#xargs"><span class="header-section-number">5.1</span> xargs</a></li>
+  <li><a href="#gnu-parallel" id="toc-gnu-parallel" class="nav-link" data-scroll-target="#gnu-parallel"><span class="header-section-number">5.2</span> GNU parallel</a></li>
+  </ul></li>
+  <li><a href="#para-aprender-mais" id="toc-para-aprender-mais" class="nav-link" data-scroll-target="#para-aprender-mais"><span class="header-section-number">6</span> Para aprender mais</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Introdução à Linha de Comando Linux</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Autores</div>
+    <div class="quarto-title-meta-contents">
+             <p>João V. F. Cavalcante <a href="https://orcid.org/0000-0001-7513-7376" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+             <p>Julia Apolonio Amorim <a href="https://orcid.org/0000-0002-8539-527X" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="manipulando-arquivos" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Manipulando arquivos</h1>
+<section id="o-que-é-o-shell" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="o-que-é-o-shell"><span class="header-section-number">1.1</span> O que é o Shell?</h2>
+<ul>
+<li><p>Tipicamente, quando interagimos com um computador, utilizamos <em>graphical user interface</em> (ou GUI), que funciona através de interações com o <em>mouse.</em></p></li>
+<li><p>É difícil fornecer instruções complexas para uma GUI, com muitos passos ou que envolvam várias operações sequenciais. Por exemplo, se você precisar copiar a terceira linha de mil arquivos de texto em centenas de diferentes diretórios.</p></li>
+<li><p>Portanto, por fazerem tais atividades triviais, as <strong>interfaces de linha de comando</strong> (CLIs) são indispensáveis. Nesse contexto, temos o <strong><em>Shell</em></strong>, o programa onde o usuário digita comandos, que serão então executados e interpretados. O <em>Shell</em> mais popular hoje em dia, e presente em sistemas operacionais <em>Unix</em>, como o Linux, é o <strong>Bash</strong>.</p></li>
+</ul>
+</section>
+<section id="navegando-por-arquivos-e-diretórios" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="navegando-por-arquivos-e-diretórios"><span class="header-section-number">1.2</span> Navegando por arquivos e diretórios</h2>
+<p>Vamos começar!</p>
+<p>Quando você abrir o <em>shell</em> pela primeira vez, você será apresentado ao <strong><em>prompt</em></strong> <strong>de comando</strong>, geralmente um cifrão, acompanhado de um cursor de texto. Em alguns sistemas operacionais é comum o prompt conter o nome do usuário e da máquina:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">biome@biome</span> $</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="hello-world" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="hello-world"><span class="header-section-number">1.3</span> Hello World!</h2>
+<p>Como todo curso de programação que se preze, vamos começar fazendo nosso ‘hello world’ em Shell:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">'Hello World!'</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="comandos-no-shell" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="comandos-no-shell"><span class="header-section-number">1.4</span> Comandos no shell</h2>
+<p>A maneira que interagimos com o <em>shell</em> é através de comandos digitados no <em>prompt</em>, que são então executados quando você pressiona a tecla <strong>Enter</strong>.</p>
+<p>Mas você ainda não sabe nenhum comando! Então, para começarmos, use o comando <code>ls</code>, que significa <strong>l</strong>i<strong>s</strong>tar, que lista os arquivos na pasta, ou diretório, atual:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="diretório-de-trabalho" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="diretório-de-trabalho"><span class="header-section-number">1.5</span> Diretório de trabalho</h2>
+<p>O prompt listou todos os arquivos e diretórios presentes onde você está. Mas onde você está agora? Com o comando ‘pwd’, que significa <strong>P</strong>rint <strong>W</strong>orking <strong>D</strong>irectory, você consegue ver o caminho absoluto para onde o seu prompt está apontando:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Se você seguiu as instruções à risca até aqui, o output do prompt deve ser o seu ‘Home Directory’, ou seja, o local que você entra quando faz login. Cada usuário no computador tem o seu próprio, e ele deve ter um formato <code>/home/&lt;USUARIO&gt;</code>.</p>
+</section>
+<section id="movendo-entre-pastas" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="movendo-entre-pastas"><span class="header-section-number">1.6</span> Movendo entre pastas</h2>
+<p>Agora, para se mover dentro do sistema de arquivos, você pode usar o comando ‘cd’, de <strong>c</strong>hange <strong>d</strong>irectory:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> Downloads</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Você entrou no diretório de downloads do seu computador. Você pode checar os arquivos existentes usando ‘ls’ e pode verificar onde está usando ‘pwd’.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="opções-do-ls" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="opções-do-ls"><span class="header-section-number">1.7</span> Opções do ls</h2>
+<p>Se você tem um grande número de arquivos no seu diretório, é complicado localizar algum arquivo apenas listando todos. Para isso, podemos usar alguns artifícios do comando ls:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-t</span> <span class="co">#organiza por tempo em vez de ordem alfabética</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-tr</span> <span class="co">#reverte a ordem anterior (mostra o mais recente por último)</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-s</span> <span class="co">#mostra o tamanho de cada arquivo em blocos</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-sh</span> <span class="co">#mostra o tamanho de cada arquivo em formato de leitura humano</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="pp">*</span>.zip <span class="co">#mostra todos os arquivos que terminam com ".zip"</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> sh<span class="pp">*</span> <span class="co">#mostra todos os arquivos que começam com "sh"</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="pp">*</span>lesson<span class="pp">*</span> <span class="co">#mostra todos os arquivos que contém "lesson" em algum canto do nome</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="dezipar-arquivos" class="level2" data-number="1.8">
+<h2 data-number="1.8" class="anchored" data-anchor-id="dezipar-arquivos"><span class="header-section-number">1.8</span> Dezipar arquivos</h2>
+<p>Agora que achamos o arquivo com os dados do curso, vamos dezipá-lo para acessar seu conteúdo interno:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unzip</span> shell-lesson-data.zip</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> shell-lesson-data</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> shell-lesson-data</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> exercise-data</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Dica: você não precisa escrever o nome do arquivo inteiro! Basta começar a escrever e pressionar ‘Tab’ que o prompt autocompletará.</p>
+</section>
+<section id="navegando-para-trás" class="level2" data-number="1.9">
+<h2 data-number="1.9" class="anchored" data-anchor-id="navegando-para-trás"><span class="header-section-number">1.9</span> Navegando para trás</h2>
+<p>Como voltar no sistema de arquivos?</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> .. <span class="co">#volta uma etapa na arvore de arquivos</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="co">#volta para o home directory</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> Downloads/shell-lesson-data/north-pacific-gyre <span class="co">#caminho relativo</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /home/juliaapolonio/Downloads/shell-lesson-data/exercise-data/alkanes <span class="co">#caminho absoluto</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="arquivos-ocultos" class="level2" data-number="1.10">
+<h2 data-number="1.10" class="anchored" data-anchor-id="arquivos-ocultos"><span class="header-section-number">1.10</span> Arquivos ocultos</h2>
+<p>Essa opção ‘..’ não está presente quando rodamos ‘ls’, mas ela está oculta em todos os diretórios e pode ser vista com:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-a</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Assim como o ‘..’, que volta um passo na árvore de arquivos, também temos o ‘.’, que representa o diretório atual. Em algumas situações, também haverão alguns arquivos de configuração (como o .gitignore, comumente visto em repositórios do git).</p>
+</section>
+<section id="criar-mover-copiar-e-deletar-arquivos" class="level2" data-number="1.11">
+<h2 data-number="1.11" class="anchored" data-anchor-id="criar-mover-copiar-e-deletar-arquivos"><span class="header-section-number">1.11</span> Criar, mover, copiar e deletar arquivos</h2>
+<p>Para criar um diretório, você pode usar o comando ‘mkdir’, de <strong>m</strong>a<strong>k</strong>e <strong>dir</strong>ectory:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../writing</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> thesis</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="regras-básicas-para-nomear-um-diretório" class="level2" data-number="1.12">
+<h2 data-number="1.12" class="anchored" data-anchor-id="regras-básicas-para-nomear-um-diretório"><span class="header-section-number">1.12</span> Regras básicas para nomear um diretório:</h2>
+<ul>
+<li><p>Não use espaços</p></li>
+<li><p>Não comece com hífen (-)</p></li>
+<li><p>Use apenas letras, números, ponto final, hífen, underscore</p></li>
+</ul>
+<p>Se você precisa lidar com diretórios que não seguem essas regras, você pode colocar o nome deles entre aspas simples ’’ para mencioná-los em algum comando.</p>
+</section>
+<section id="criar-um-arquivo" class="level2" data-number="1.13">
+<h2 data-number="1.13" class="anchored" data-anchor-id="criar-um-arquivo"><span class="header-section-number">1.13</span> Criar um arquivo</h2>
+<p>Vamos criar um arquivo a partir do terminal:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> thesis</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> draft.txt <span class="co">#cria arquivo sem abrir</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> files</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> files</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="ex">code</span> texto.txt <span class="co">#abre na IDE Visual Studio Code</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> rascunho.txt <span class="co">#abre no editor nano. Outras opções: vim, vi</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="comandos-do-nano" class="level2" data-number="1.14">
+<h2 data-number="1.14" class="anchored" data-anchor-id="comandos-do-nano"><span class="header-section-number">1.14</span> Comandos do nano</h2>
+<ul>
+<li><p>Ctrl + O, Enter - salvar alterações no arquivo</p></li>
+<li><p>Ctrl + X - sair do editor</p></li>
+<li><p>Ctrl + ^ - modo de seleção de texto</p></li>
+<li><p>Alt + 6 - copia</p></li>
+<li><p>Ctrl + U - cola</p></li>
+</ul>
+</section>
+<section id="deletar-arquivos" class="level2" data-number="1.15">
+<h2 data-number="1.15" class="anchored" data-anchor-id="deletar-arquivos"><span class="header-section-number">1.15</span> Deletar arquivos</h2>
+<p>Como não vamos usar os arquivos criados em <em>files</em>, vamos removê-los usando ‘rm’, de <strong>r</strong>e<strong>m</strong>ove:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> texto.txt <span class="co">#deleta o arquivo</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> files <span class="co">#irá retornar um erro</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-rf</span> files <span class="co">#para deletar um diretório e seus arquivos, é preciso das opções -rf (recursive,force)</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#CUIDADO com esse comando! Não existe lixeira no Linux!!!!</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="mover-arquivos" class="level2" data-number="1.16">
+<h2 data-number="1.16" class="anchored" data-anchor-id="mover-arquivos"><span class="header-section-number">1.16</span> Mover arquivos</h2>
+<p>O comando <strong>m</strong>o<strong>v</strong>e é versátil e serve tanto para renomear arquivos quando para movê-los para outro caminho:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Downloads/shell-lesson-data/exercise-data/writing <span class="co">#abrevia o caminho da Home</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> thesis/draft.txt thesis/quotes.txt <span class="co">#muda o nome de draft.txt para quotes.txt</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> thesis</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> thesis/quotes.txt . <span class="co">#movendo quotes.txt para o nosso diretório atual</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> thesis</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="copiar-arquivos" class="level2" data-number="1.17">
+<h2 data-number="1.17" class="anchored" data-anchor-id="copiar-arquivos"><span class="header-section-number">1.17</span> Copiar arquivos</h2>
+<p>Podemos copiar arquivos usando o comando ‘cp’:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> quotes.txt thesis/quotations.txt</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-r</span> thesis thesis_backup <span class="co">#podemos copiar recursivamente para gerar um arquivo de backup</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> thesis</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> thesis_backup</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="fluxos-de-dados" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Fluxos de dados</h1>
+<section id="olhando-para-dentro-dos-arquivos" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="olhando-para-dentro-dos-arquivos"><span class="header-section-number">2.1</span> Olhando para dentro dos arquivos</h2>
+<p>Agora que aprendemos a navegar diretórios, vamos mexer com arquivos. No diretório em que estamos, temos uma série de arquivos no formato Protein Data Bank (pdb). Vamos usar o comando ‘wc’, de <strong>w</strong>ord <strong>c</strong>ount:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> cubane.pdb <span class="co">#linhas, palavras e caracteres no arquivo</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> <span class="co">#só linhas</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="exibir-conteúdo" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="exibir-conteúdo"><span class="header-section-number">2.2</span> Exibir conteúdo</h2>
+<p>Mas o que tem nesse arquivo?</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> cubane.pdb </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Se o seu arquivo for muito grande, é melhor usar um exibidor interativo:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> cubane.pdb </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="head-e-tail" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="head-e-tail"><span class="header-section-number">2.3</span> Head e Tail</h2>
+<p>Às vezes, você só quer ver uma parte do arquivo. Você pode usar os comandos ‘head’ e ‘tail’:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> cubane.pdb</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 5 cubane.pdb</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 5 cubane.pdb ethane.pdb</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> cubane.pdb</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> <span class="at">-n</span> 5 cubane.pdb</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="redirecionamento" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="redirecionamento"><span class="header-section-number">2.4</span> Redirecionamento</h2>
+<p>Podemos registar o output de um comando dentro de um arquivo por meio do símbolo ‘&gt;’:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> <span class="pp">*</span>.pdb <span class="op">&gt;</span> lengths.txt</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> lengths.txt</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Agora, temos um arquivo chamado <em>lengths.txt</em> que possui o número de linhas de todos os arquivos .pdb do diretório.</p>
+</section>
+<section id="filtrar-e-ordenar-os-conteúdos-de-um-arquivo" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="filtrar-e-ordenar-os-conteúdos-de-um-arquivo"><span class="header-section-number">2.5</span> Filtrar e ordenar os conteúdos de um arquivo</h2>
+<p>Nós podemos ordenar as linhas de um arquivo usando o comando ‘sort’:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> <span class="at">-n</span> lengths.txt</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> lengths.txt <span class="co">#nesse caso, o ordenamento será por ordem alfabética</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>E da mesma maneira, podemos direcionar o output do ordenamento para um novo arquivo:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> <span class="at">-n</span> lengths.txt <span class="op">&gt;</span> sorted-lengths.txt</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 1 sorted-lengths.txt</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Obs.: em Shell, é uma péssima prática direcionar o output de uma operação para o mesmo arquivo, isso pode comprometer a integridade dele!</p>
+</section>
+<section id="passando-o-output-para-outro-comando-pipe" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="passando-o-output-para-outro-comando-pipe"><span class="header-section-number">2.6</span> Passando o output para outro comando (pipe)</h2>
+<p>Em vez de criar vários arquivos intermediários que tornam o trabalho mais confuso, podemos direcionar o output de uma operação diretamente para outra usando o pipe ‘|’:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> <span class="at">-n</span> lengths.txt <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n</span> 1</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> <span class="pp">*</span>.pdb <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-n</span> <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n</span> 1</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="exercício---combinando-múltiplos-comandos" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="exercício---combinando-múltiplos-comandos"><span class="header-section-number">2.7</span> Exercício - Combinando múltiplos comandos</h2>
+<ul>
+<li><p>Volte ao Home Directory</p></li>
+<li><p>Navegue até a pasta <em>animal-counts,</em> dentro de <em>exercise-data</em> e localize o arquivo <em>animals.csv</em></p></li>
+<li><p>Inspecione o arquivo. Quantas linhas ele tem? Qual o formato do dado dele?</p></li>
+<li><p>Gere o arquivo <em>exercicio.txt</em> que ordena de forma alfabética reversa as 5 primeiras linhas do arquivo <em>animals.txt</em> e dispõe apenas os 3 últimos resultados da ordenação.</p></li>
+</ul>
+</section>
+</section>
+<section id="loops-scripts" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Loops &amp; Scripts</h1>
+<section id="como-repetir-uma-ação-várias-vezes" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="como-repetir-uma-ação-várias-vezes"><span class="header-section-number">3.1</span> Como repetir uma ação várias vezes?</h2>
+<ul>
+<li><p><em>Loops</em> ou, em bom português, laços;</p></li>
+<li><p>Como em qualquer outra linguagem, laços permitem que você realize uma mesma ação várias vezes, em sequência.</p></li>
+<li><p>Mão na massa! Vamos supor que temos centenas de genomas, e queremos ver identificação de cada um desses bichos, que está na segunda linha de cada genoma. Você talvez pense em:</p></li>
+</ul>
+<div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 2 genoma.dat <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 1</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Mas nós temos centenas de arquivos!</li>
+</ul>
+</section>
+<section id="introduzindo-laços" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="introduzindo-laços"><span class="header-section-number">3.2</span> Introduzindo laços</h2>
+<ul>
+<li>A estrutura geral de um laço simples em Bash é a seguinte:</li>
+</ul>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># "para cada coisa na lista de coisas"</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># coisa é um nome arbitrário!</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> coisa <span class="kw">in</span> lista_de_coisas </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># A palavra "do" indica o início do bloco </span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># da ação a ser realizada</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span> </span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Não precisa indentar, mas ajuda.</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">comando_a_executar</span> <span class="va">$coisa</span> </span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co"># A palavra "done" indica o fim de um laço</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span>  </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="ok-e-agora-para-os-genomas" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="ok-e-agora-para-os-genomas"><span class="header-section-number">3.3</span> Ok e agora para os genomas?</h2>
+<ul>
+<li>Mesma coisa que antes, mas vamos usar dados “reais” agora:</li>
+</ul>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> genoma <span class="kw">in</span> basilisk.dat minotaur.dat</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">head</span> <span class="at">-n</span> 2 <span class="va">$genoma</span> <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 1</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Ou, para saber a identificação para cada arquivo:</li>
+</ul>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> genoma <span class="kw">in</span> basilisk.dat minotaur.dat</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="va">$genoma</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span> <span class="at">-n</span> 2 <span class="va">$genoma</span> <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 1</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="como-salvar-comandos-para-reutilizar-depois" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="como-salvar-comandos-para-reutilizar-depois"><span class="header-section-number">3.4</span> Como salvar comandos para reutilizar depois?</h2>
+<ul>
+<li>A resposta: <em>Scripts</em>!
+<ul>
+<li>Arquivos de texto contendo código, que pode ser interpretado e re-executado múltiplas vezes.</li>
+</ul></li>
+<li>Vamos supor que novos genomas continuam entrando no seu banco de dados, e agora você quer uma forma fácil de re-executar a identificação do genoma.
+<ul>
+<li>Vamos então fazer um <em>script</em> que execute os comandos anteriores.</li>
+</ul></li>
+</ul>
+</section>
+<section id="escrevendo-um-script" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="escrevendo-um-script"><span class="header-section-number">3.5</span> Escrevendo um script</h2>
+<ul>
+<li><p>Existem inúmeros editores de texto possíveis, mas, se você está restrito à linha de comando, provavelmente usará:</p>
+<ul>
+<li><code>nano</code></li>
+<li><code>vim</code></li>
+</ul></li>
+<li><p>Para motivos didáticos, utilizaremos o <code>nano</code> nos exemplos posteriores.</p></li>
+<li><p>Vamos criar um novo script, para isso, execute:</p></li>
+</ul>
+<div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> identifica_genoma.sh</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="escrevendo-um-script-1" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="escrevendo-um-script-1"><span class="header-section-number">3.6</span> Escrevendo um script</h2>
+<ul>
+<li>Dentro do script, vamos colocar o comando anterior, mas vamos substituir uma parte:</li>
+</ul>
+<div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 2 <span class="va">$1</span> <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 1</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><p>A variável <code>$1</code> indica o primeiro argumento na linha de comando quando esse script é executado, ou seja, o genoma. Também podemos usar <code>$2</code>, <code>$3</code>, etc… <code>$@</code> se refere a todos os argumentos.</p></li>
+<li><p>Salve o arquivo, e agora podemos executá-lo como tal:</p></li>
+</ul>
+<div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> identifica_genoma.sh unicorn.dat</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="uma-breve-tangente-interpretadores-e-permissões" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="uma-breve-tangente-interpretadores-e-permissões"><span class="header-section-number">3.7</span> Uma breve tangente: Interpretadores e permissões</h2>
+<ul>
+<li><p>Você notou como usamos <code>bash</code> no comando anterior? Isso é um comando por si só, que diz que a linguagem <code>bash</code> deve interpretar o conteúdo textual do arquivo.</p></li>
+<li><p>Mas isso pode ser ainda mais simples! Com apenas dois passos:</p>
+<ul>
+<li>Inclua no seu arquivo um <em>shebang</em>:</li>
+</ul>
+<div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 2 <span class="va">$1</span> <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 1</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ul>
+</section>
+<section id="ok-mas-e-agora-para-executar" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="ok-mas-e-agora-para-executar"><span class="header-section-number">3.8</span> Ok, mas e agora para executar?</h2>
+<ul>
+<li>Agora para executar seu programa propriamente dito, precisamos primeiro mudar suas permissões:
+<ul>
+<li>O comando <code>chmod</code> pode dar a qualquer arquivo de texto a capacidade de ser executado - Isso serve não só para bash, mas também Python, R, etc.</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x identifica_genoma.sh</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Agora podemos executar nosso script, com interpretadores e argumentos claramente definidos, assim:</li>
+</ul>
+<div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./identifica_genoma.sh</span> unicorn.dat</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Nosso script agora virou um comando! Podendo ser utilizado em outros scripts!</li>
+</ul>
+</section>
+<section id="exercício" class="level2" data-number="3.9">
+<h2 data-number="3.9" class="anchored" data-anchor-id="exercício"><span class="header-section-number">3.9</span> Exercício</h2>
+<ul>
+<li><p>Se direcione ao diretório <code>exercise-data/alkanes</code></p></li>
+<li><p>Lá, escreva um script chamado <code>junta_pdb.sh</code>. Esse script deve fazer um laço em todos os arquivos .pdb no diretório atual, con<code>cat</code>enando todos eles em um único arquivo. Para isso, use o direcionador de saída <code>&gt;&gt;</code>.</p></li>
+<li><p>Faça seu script executável (adicione o <em>shebang</em> e modifique as permissões).</p></li>
+</ul>
+</section>
+</section>
+<section id="avançando-nos-comandos-i---grep-e-expressões-regulares" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Avançando nos comandos I - Grep e Expressões Regulares</h1>
+<section id="o-que-danado-é-grep" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="o-que-danado-é-grep"><span class="header-section-number">4.1</span> O que danado é grep?</h2>
+<ul>
+<li><p><em><strong>G</strong>lobal <strong>R</strong>egular <strong>E</strong>xpression search and <strong>Print</strong></em></p></li>
+<li><p>Uma forma de achar padrões em arquivo de texto</p>
+<ul>
+<li>Que padrões são esses? <em>Expressões regulares</em>.</li>
+</ul></li>
+<li><p>Um uso comum de grep:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Buscar a palavra "Equus" em todos os arquivos .dat</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> Equus <span class="pp">*</span>.dat</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>No entanto, grep se torna realmente poderoso quando usamos expressões regulares</p></li>
+</ul>
+</section>
+<section id="o-que-são-expressões-regulares" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="o-que-são-expressões-regulares"><span class="header-section-number">4.2</span> O que são expressões regulares?</h2>
+<ul>
+<li><p>São formas de definir padrões de busca textual regrados.</p></li>
+<li><p>Por exemplo, uma expressão regular para achar a palavra “Nossa” seria apenas a palavra propriamente dita. Mas para buscar “Nossa”, “Nosso”, “Nossas”, “Nossos”, você faria algo assim: <code>Noss[a-zA-Z]*</code></p>
+<ul>
+<li>Por exemplo com grep:</li>
+</ul>
+<div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"Noss[a-zA-Z]*"</span> cancao_do_exilio.txt</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ul>
+</section>
+<section id="expressões-regulares" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="expressões-regulares"><span class="header-section-number">4.3</span> Expressões regulares</h2>
+<ul>
+<li>Expressões regulares (ou <em>regexes</em>), podem ficar ainda mais complexas!</li>
+</ul>
+<div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Expressão regular para buscar um email numa sequência de texto</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-E</span> <span class="st">'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b'</span> texto.txt</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Não cobriremos grep e expressões regulares a fundo aqui, mas saiba que são essenciais para qualquer pessoa trabalhando na linha de comando, sobretudo para bioinformatas.
+<ul>
+<li><a href="https://regexlearn.com/pt-br/learn/regex101">Esse site</a> possui um tutorial interativo de regex caso queira aprender mais a respeito.</li>
+</ul></li>
+</ul>
+</section>
+<section id="mais-sobre-grep" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="mais-sobre-grep"><span class="header-section-number">4.4</span> Mais sobre grep</h2>
+<ul>
+<li>O que mostramos aqui sobre grep é apenas o básico, grep pode ficar, assim como as <em>regexes</em>, ainda mais complexo! Dê uma olhada no seu manual (<code>man grep</code>) para saber mais a respeito. Mas aqui uma palhinha:
+<ul>
+<li>Vamos contar o número de ocorrências da palavra “terra” na Canção do Exílio:</li>
+</ul>
+<div class="sourceCode" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-c</span> terra cancao_do_exilio.txt</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ul>
+</section>
+</section>
+<section id="avançando-nos-comandos-ii" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Avançando nos comandos II</h1>
+<section id="xargs" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="xargs"><span class="header-section-number">5.1</span> xargs</h2>
+<ul>
+<li><code>xargs</code> é um comando que transforma a saída de outros comandos de forma a facilitar a execução encadeada. Pois a quebra de linhas ou espaços pode dificultar a execução de outro comando em sequência.</li>
+</ul>
+<div class="sourceCode" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Isso não funciona</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="pp">*</span>pdb <span class="kw">|</span> <span class="fu">grep</span> AUTHOR</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Isso funciona!</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="pp">*</span>pdb <span class="kw">|</span> <span class="fu">xargs</span> grep AUTHOR</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="gnu-parallel" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="gnu-parallel"><span class="header-section-number">5.2</span> GNU parallel</h2>
+<ul>
+<li><p><code>parallel</code> é um comando que por padrão não vem em algumas distribuições, mas é super útil! Use ele para paralelizar a execução de comandos.</p></li>
+<li><p>Por exemplo, vamos compactar vários arquivos .pdb:</p></li>
+</ul>
+<div class="sourceCode" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="pp">*</span>pdb <span class="kw">|</span> <span class="ex">parallel</span> gzip</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<center>
+<img src="https://i.imgur.com/LTnMvA4.png" class="img-fluid" width="400">
+</center>
+</section>
+</section>
+<section id="para-aprender-mais" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Para aprender mais</h1>
+<ul>
+<li><p><a href="https://linuxjourney.com/change_locale/pt-BR">Linux Journey</a></p></li>
+<li><p><a href="https://swcarpentry.github.io/shell-novice/">Software Carpentry</a></p></li>
+<li><p><a href="https://www.hackerrank.com/domains/shell">HackerRank</a></p></li>
+</ul>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiada");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiada");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
